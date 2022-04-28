@@ -13,6 +13,6 @@ end entity;
 
 architecture a_mux of mux is
 begin
-    out_data <= in_data_1 when sel = '1' else in_data_2;
+    out_data <= in_data_1 when sel = '0' else in_data_2;
 end architecture;
                 
