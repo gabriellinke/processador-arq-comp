@@ -18,17 +18,17 @@ architecture a_conexao_banco_ULA_tb of conexao_banco_ULA_tb is
             ULA_src_in : in std_logic;
             opselect_in : in unsigned(1 downto 0);
 
-            out_data : out signed(15 downto 0);
-            out_greater_equal_or_signal : out std_logic;
-            out_zero : out std_logic
+            ULA_out_data : out signed(15 downto 0);
+            ULA_out_greater_equal_or_signal : out std_logic;
+            ULA_out_zero : out std_logic
         );
     end component;
     constant period_time : time := 100 ns;
     signal finished : std_logic := '0';
-    signal clk_in, wr_en_in, reset_in, ULA_src_in, out_greater_equal_or_signal, out_zero: std_logic;
+    signal clk_in, wr_en_in, reset_in, ULA_src_in, ULA_out_greater_equal_or_signal, ULA_out_zero: std_logic;
     signal opselect_in : unsigned(1 downto 0);
     signal sel_reg_1_in, sel_reg_2_in, sel_reg_write_in : unsigned(2 downto 0);
-    signal in_data, out_data : signed(15 downto 0);
+    signal in_data, ULA_out_data : signed(15 downto 0);
 begin
     uut : conexao_banco_ula port map(
         sel_reg_1_in=>sel_reg_1_in,
@@ -40,9 +40,9 @@ begin
         reset_in=>reset_in,
         ULA_src_in=>ULA_src_in,
         opselect_in=>opselect_in,
-        out_data=>out_data,
-        out_greater_equal_or_signal=>out_greater_equal_or_signal,
-        out_zero=>out_zero
+        ULA_out_data=>ULA_out_data,
+        ULA_out_greater_equal_or_signal=>ULA_out_greater_equal_or_signal,
+        ULA_out_zero=>ULA_out_zero
     );
 
     reset_global: process
@@ -96,7 +96,7 @@ begin
         wait for period_time;
 
         --
-        wr_en_in <= '1';
+        wr_en_in <= '0';
         sel_reg_1_in <= "000";
         sel_reg_2_in <= "111";
         sel_reg_write_in <= "010";
@@ -106,7 +106,7 @@ begin
         wait for period_time;
 
         --
-        wr_en_in <= '1';
+        wr_en_in <= '0';
         sel_reg_1_in <= "000";
         sel_reg_2_in <= "111";
         sel_reg_write_in <= "010";
