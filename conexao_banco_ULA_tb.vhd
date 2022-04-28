@@ -75,7 +75,7 @@ begin
     begin
         wait for period_time * 2;
 
-        -- 
+        -- Grava no registrador 2 a soma do valor armazenado no registrador 0 com o valor de in_data
         wr_en_in <= '1';
         sel_reg_1_in <= "000";
         sel_reg_2_in <= "111";
@@ -85,7 +85,7 @@ begin
         opselect_in <= "00";
         wait for period_time;
 
-        -- 
+        -- Grava no registrador 2 a soma do valor armazenado no registrador 0 e no registrador 3
         wr_en_in <= '1';
         sel_reg_1_in <= "000";
         sel_reg_2_in <= "111";
@@ -95,7 +95,7 @@ begin
         opselect_in <= "00";
         wait for period_time;
 
-        --
+        -- Calcula a soma do valor armazenado no registrador 0 e com o in_data mas não grava em nenhum lugar
         wr_en_in <= '0';
         sel_reg_1_in <= "000";
         sel_reg_2_in <= "111";
@@ -105,7 +105,7 @@ begin
         opselect_in <= "00";
         wait for period_time;
 
-        --
+        -- Calcula a soma do valor armazenado no registrador 0 e com o registrador 3 mas não grava em nenhum lugar
         wr_en_in <= '0';
         sel_reg_1_in <= "000";
         sel_reg_2_in <= "111";
