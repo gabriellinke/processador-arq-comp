@@ -33,14 +33,14 @@ architecture a_banco_reg16bits of banco_reg16bits is
 
 begin
 
-    reg0: reg16bit port map(clk=>clk, reset=>reset, wr_en=>wr_en0, data_in=>data_in, data_out=>data_out0);
-    reg1: reg16bit port map(clk=>clk, reset=>reset, wr_en=>wr_en1, data_in=>data_in, data_out=>data_out1);
-    reg2: reg16bit port map(clk=>clk, reset=>reset, wr_en=>wr_en2, data_in=>data_in, data_out=>data_out2);
-    reg3: reg16bit port map(clk=>clk, reset=>reset, wr_en=>wr_en3, data_in=>data_in, data_out=>data_out3);
-    reg4: reg16bit port map(clk=>clk, reset=>reset, wr_en=>wr_en4, data_in=>data_in, data_out=>data_out4);
-    reg5: reg16bit port map(clk=>clk, reset=>reset, wr_en=>wr_en5, data_in=>data_in, data_out=>data_out5);
-    reg6: reg16bit port map(clk=>clk, reset=>reset, wr_en=>wr_en6, data_in=>data_in, data_out=>data_out6);
-    reg7: reg16bit port map(clk=>clk, reset=>reset, wr_en=>wr_en7, data_in=>data_in, data_out=>data_out7);
+    reg0: reg16bits port map(clk=>clk, reset=>reset, wr_en=>wr_en0, data_in=>data_in, data_out=>data_out0);
+    reg1: reg16bits port map(clk=>clk, reset=>reset, wr_en=>wr_en1, data_in=>data_in, data_out=>data_out1);
+    reg2: reg16bits port map(clk=>clk, reset=>reset, wr_en=>wr_en2, data_in=>data_in, data_out=>data_out2);
+    reg3: reg16bits port map(clk=>clk, reset=>reset, wr_en=>wr_en3, data_in=>data_in, data_out=>data_out3);
+    reg4: reg16bits port map(clk=>clk, reset=>reset, wr_en=>wr_en4, data_in=>data_in, data_out=>data_out4);
+    reg5: reg16bits port map(clk=>clk, reset=>reset, wr_en=>wr_en5, data_in=>data_in, data_out=>data_out5);
+    reg6: reg16bits port map(clk=>clk, reset=>reset, wr_en=>wr_en6, data_in=>data_in, data_out=>data_out6);
+    reg7: reg16bits port map(clk=>clk, reset=>reset, wr_en=>wr_en7, data_in=>data_in, data_out=>data_out7);
 
     wr_en1<='1' when sel_reg_write = "001" else '0';
     wr_en2<='1' when sel_reg_write = "010" else '0';
@@ -58,7 +58,7 @@ begin
                         data_out5 when sel_reg_1 ="101" else
                         data_out6 when sel_reg_1 ="110" else
                         data_out7 when sel_reg_1 ="111" else
-                        "0000000000000000"
+                        "0000000000000000";
 
     data_out_reg_2 <=   data_out0 when sel_reg_2 ="000" else
                         data_out1 when sel_reg_2 ="001" else
@@ -68,6 +68,6 @@ begin
                         data_out5 when sel_reg_2 ="101" else
                         data_out6 when sel_reg_2 ="110" else
                         data_out7 when sel_reg_2 ="111" else
-                        "0000000000000000"
+                        "0000000000000000";
 
 end architecture a_banco_reg16bits;
