@@ -6,13 +6,13 @@ entity mux is
     port(
         in_data_1 : in signed(15 downto 0);
         in_data_2 : in signed(15 downto 0);
-        sel : in std_logic;
+        input_sel : in std_logic;
         out_data : out signed(15 downto 0)
     );
 end entity;
 
 architecture a_mux of mux is
 begin
-    out_data <= in_data_1 when sel = '1' else in_data_2;
+    out_data <= in_data_1 when input_sel = '0' else in_data_2;
 end architecture;
                 

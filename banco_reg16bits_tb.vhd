@@ -14,9 +14,9 @@ architecture a_banco_reg16bits_tb of banco_reg16bits_tb is
             wr_en : in std_logic;
             clk : in std_logic;
             reset : in std_logic;
-            data_in : in unsigned(15 downto 0); 
-            data_out_reg_1 : out unsigned(15 downto 0); 
-            data_out_reg_2 : out unsigned(15 downto 0)
+            data_in : in signed(15 downto 0); 
+            data_out_reg_1 : out signed(15 downto 0); 
+            data_out_reg_2 : out signed(15 downto 0)
         );
     end component;
 
@@ -25,7 +25,7 @@ architecture a_banco_reg16bits_tb of banco_reg16bits_tb is
     signal finished : std_logic := '0';
     signal clk, reset, wr_en : std_logic;
     signal sel_reg_write, sel_reg_1, sel_reg_2 : unsigned(2 downto 0);
-    signal data_out_reg_1, data_out_reg_2, data_in : unsigned(15 downto 0);
+    signal data_out_reg_1, data_out_reg_2, data_in : signed(15 downto 0);
 begin
     uut: banco_reg16bits port map(  
         clk => clk,
