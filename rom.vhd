@@ -5,13 +5,13 @@ use ieee.numeric_std.all;
 entity rom is
     port( 
         clk : in std_logic;
-        address : in unsigned(11 downto 0);
+        address : in unsigned(11 downto 0); -- memória de programa:  1Kbyte = 1024bytes = 4096 bits = 2^12
         data : out unsigned(16 downto 0)
     );
 end entity;
 
 architecture a_rom of rom is
-    type mem is array (0 to 4097) of unsigned(16 downto 0); -- memória ROM de 1k e com dados de 17 bits (conforme requisitos)
+    type mem is array (0 to 4095) of unsigned(16 downto 0); -- memória ROM de 1k e com dados de 17 bits (conforme requisitos)
     constant content_rom : mem := (
         -- caso endereco => conteudo
         0 => "00000000000000001",
