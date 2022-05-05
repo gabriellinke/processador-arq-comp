@@ -15,6 +15,9 @@ ghdl -a mux_tb.vhd
 ghdl -a conexao_banco_ULA.vhd
 ghdl -a conexao_banco_ULA_tb.vhd
 
-ghdl -r conexao_banco_ULA_tb --wave=result.ghw
+ghdl -a rom.vhd
+ghdl -a rom_tb.vhd
+
+ghdl -r rom_tb --wave=result.ghw
 
 gtkwave result.ghw
