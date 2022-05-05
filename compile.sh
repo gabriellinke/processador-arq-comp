@@ -24,7 +24,10 @@ ghdl -a maquina_estados_tb.vhd
 ghdl -a pc_control.vhd
 ghdl -a pc_control_tb.vhd
 
+ghdl -a un_controle.vhd
+ghdl -a un_controle_tb.vhd
 
-ghdl -r pc_control_tb --wave=result.ghw
+
+ghdl -r un_controle_tb --wave=result.ghw
 
 gtkwave result.ghw
