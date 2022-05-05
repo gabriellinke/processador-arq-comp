@@ -21,6 +21,10 @@ ghdl -a rom_tb.vhd
 ghdl -a maquina_estados.vhd
 ghdl -a maquina_estados_tb.vhd
 
-ghdl -r rom_tb --wave=result.ghw
+ghdl -a pc_control.vhd
+ghdl -a pc_control_tb.vhd
+
+
+ghdl -r pc_control_tb --wave=result.ghw
 
 gtkwave result.ghw
