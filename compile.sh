@@ -18,6 +18,9 @@ ghdl -a conexao_banco_ULA_tb.vhd
 ghdl -a rom.vhd
 ghdl -a rom_tb.vhd
 
+ghdl -a maquina_estados.vhd
+ghdl -a maquina_estados_tb.vhd
+
 ghdl -r rom_tb --wave=result.ghw
 
 gtkwave result.ghw
