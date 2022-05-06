@@ -25,7 +25,7 @@ ghdl -a rom_tb.vhd
 ghdl -a maquina_estados.vhd
 ghdl -a maquina_estados_tb.vhd
 
-# ghdl -a un_controle.vhd
+ghdl -a un_controle.vhd
 # ghdl -a un_controle_tb.vhd
 
 

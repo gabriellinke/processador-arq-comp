@@ -27,7 +27,7 @@ architecture a_conexao_banco_ULA_tb of conexao_banco_ULA_tb is
     signal finished : std_logic := '0';
     signal clk_in, wr_en_in, reset_in, ULA_src_in, ULA_out_greater_equal_or_signal, ULA_out_zero: std_logic;
     signal opselect_in : unsigned(1 downto 0);
-    signal sel_reg_1_in, sel_reg_2_in, sel_reg_write_in : unsigned(2 downto 0);
+    signal sel_reg_1_in, sel_reg_2_in, sel_reg_write_in : unsigned(2 downto 0) := "000";
     signal in_data, ULA_out_data : signed(15 downto 0);
 begin
     uut : conexao_banco_ula port map(

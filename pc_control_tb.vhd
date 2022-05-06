@@ -53,7 +53,6 @@ begin
 
     process -- sinais dos casos de teste
     begin
-        wait for period_time *5 ;
         wait;
     end process;
 
