@@ -10,20 +10,20 @@ architecture a_pc_control_tb of pc_control_tb is
         port(
             clk :in std_logic;
             wr_en: in std_logic;
-            data_in: in signed(15 downto 0);
-            data_out: out signed(15 downto 0)
+            reset: in std_logic;
+            data_out: out signed(11 downto 0)
         );    
     end component pc_control;
 
     -- 100 ns é o período que escolhi para o clock
     constant period_time : time := 100 ns;
-    signal finished : std_logic := '0';
+    signal finished, reset : std_logic := '0';
     signal clk : std_logic;
-    signal data_in : signed(15 downto 0) := "0000000000000000";
-    signal data_out : signed(15 downto 0);
+    signal wr_en : std_logic := '1';
+    signal data_in, data_out : signed(11 downto 0) := "000000000000";
 
 begin
-    uut: pc_control port map (clk => clk, wr_en => '1', data_in => data_in, data_out => data_out);
+    controller: pc_control port map (clk => clk, wr_en => wr_en, reset => reset, data_out => data_out);
 
     sim_time_proc: process
     begin
@@ -43,10 +43,17 @@ begin
         wait;
     end process clk_proc;
 
+    reset_global: process
+    begin
+        reset <= '1';
+        wait for period_time * 2;
+        reset <= '0';
+        wait;
+    end process;
+
     process -- sinais dos casos de teste
     begin
-        data_in <="0000000000000000";
-        wait for 50 ns;
+        wait for period_time *5 ;
         wait;
     end process;
 

@@ -3,6 +3,10 @@
 ghdl -a reg16bits.vhd
 ghdl -a reg16bits_tb.vhd
 
+
+ghdl -a reg12bits.vhd
+ghdl -a reg12bits_tb.vhd
+
 ghdl -a banco_reg16bits.vhd
 ghdl -a banco_reg16bits_tb.vhd
 
@@ -20,6 +24,10 @@ ghdl -a rom_tb.vhd
 
 ghdl -a maquina_estados.vhd
 ghdl -a maquina_estados_tb.vhd
+
+# ghdl -a un_controle.vhd
+# ghdl -a un_controle_tb.vhd
+
 
 ghdl -a pc_control.vhd
 ghdl -a pc_control_tb.vhd
