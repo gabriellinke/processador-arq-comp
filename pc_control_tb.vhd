@@ -8,10 +8,12 @@ end entity pc_control_tb;
 architecture a_pc_control_tb of pc_control_tb is
     component pc_control
         port(
-            clk :in std_logic;
-            wr_en: in std_logic;
-            reset: in std_logic;
-            data_out: out signed(11 downto 0)
+            clk : in std_logic;
+            wr_en : in std_logic;
+            reset : in std_logic;
+            jump_en : in std_logic;
+            data_in : in signed(11 downto 0);
+            data_out : out signed(11 downto 0)
         );    
     end component pc_control;
 
@@ -20,10 +22,11 @@ architecture a_pc_control_tb of pc_control_tb is
     signal finished, reset : std_logic := '0';
     signal clk : std_logic;
     signal wr_en : std_logic := '1';
+    signal jump_en : std_logic := '0';
     signal data_in, data_out : signed(11 downto 0) := "000000000000";
 
 begin
-    controller: pc_control port map (clk => clk, wr_en => wr_en, reset => reset, data_out => data_out);
+    controller: pc_control port map (clk => clk, wr_en => wr_en, reset => reset, jump_en => jump_en, data_in => data_in, data_out => data_out);
 
     sim_time_proc: process
     begin
@@ -53,6 +56,16 @@ begin
 
     process -- sinais dos casos de teste
     begin
+        wait for period_time * 2;
+
+        wait for period_time * 4;
+
+        data_in <= "000000000000";
+        jump_en <= '1';
+
+        wait for period_time;
+
+        jump_en <= '0';
         wait;
     end process;
 

@@ -25,17 +25,15 @@ ghdl -a rom_tb.vhd
 ghdl -a maquina_estados.vhd
 ghdl -a maquina_estados_tb.vhd
 
-ghdl -a un_controle.vhd
-# ghdl -a un_controle_tb.vhd
-
-
 ghdl -a pc_control.vhd
 ghdl -a pc_control_tb.vhd
 
 ghdl -a un_controle.vhd
 ghdl -a un_controle_tb.vhd
 
+ghdl -a top_level_controle.vhd
+ghdl -a top_level_controle_tb.vhd
 
-ghdl -r un_controle_tb --wave=result.ghw
+ghdl -r top_level_controle_tb --wave=result.ghw
 
 gtkwave result.ghw
