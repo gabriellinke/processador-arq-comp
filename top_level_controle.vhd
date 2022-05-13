@@ -20,21 +20,21 @@ architecture a_top_level_controle of top_level_controle is
 
     component pc_control is
         port(
-            clk :in std_logic;
-            wr_en: in std_logic;
-            reset: in std_logic;
+            clk : in std_logic;
+            wr_en : in std_logic;
+            reset : in std_logic;
             jump_en : in std_logic;
             data_in : in signed(11 downto 0);
-            data_out: out signed(11 downto 0)
+            data_out : out signed(11 downto 0)
         );   
     end component;
 
     component un_controle is
         port(
-            clk: in std_logic;
-            reset: in std_logic;
-            instr_in: in signed(16 downto 0);
-            rom_read, pc_write, jump_en: out std_logic
+            clk : in std_logic;
+            reset : in std_logic;
+            instr_in : in signed(16 downto 0);
+            rom_read, pc_write, jump_en : out std_logic
         );
     end component;
     
@@ -42,7 +42,7 @@ architecture a_top_level_controle of top_level_controle is
     signal pc_write : std_logic := '0';
     signal jump_en : std_logic := '0';
     signal pc_out : signed(11 downto 0) := "000000000000";
-    signal rom_out: signed(16 downto 0) := "00000000000000000";
+    signal rom_out : signed(16 downto 0) := "00000000000000000";
 begin
     MEM_ROM: rom port map(
         clk => clk,
@@ -67,4 +67,6 @@ begin
         pc_write => pc_write,
         jump_en => jump_en
     );
+
+    data_out <= rom_out;
 end architecture;

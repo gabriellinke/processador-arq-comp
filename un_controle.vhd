@@ -21,55 +21,14 @@ architecture a_un_controle of un_controle is
         );
     end component;
 
-    -- component rom is
-    --     port( 
-    --         clk : in std_logic;
-    --         address : in unsigned(11 downto 0);
-    --         data : out unsigned(16 downto 0)
-    --     );
-    -- end component;
-
-    -- component pc_control is
-    --     port( 
-    --         clk :in std_logic;
-    --         wr_en: in std_logic;
-    --         reset: in std_logic;
-    --         data_out: out signed(11 downto 0)
-    --     );
-    -- end component;
-
     signal estado_s: std_logic:='0';
     signal opcode: signed(4 downto 0) := "00000";
-    -- signal pc_out: signed(11 downto 0) := "000000000000";
-    -- signal rom_out: unsigned(16 downto 0) := "00000000000000000";
 begin
-
-    -- process (reset, clk, estado_s)
-    -- begin
-    --     if rising_edge(clk) then
-    --        if jump_en='1' then
-    --            jump in the pc_control
-    --        end if;
-    -- end process;
-
     MAQ: maquina_estados port map(
         clk=>clk, 
         reset=>reset, 
         estado=>estado_s
     );
-
-    -- MEM_ROM: rom port map (
-    --     clk => clk, 
-    --     address => pc_out,
-    --     data => rom_out
-    -- );
-
-    -- PC: pc_control port map (
-    --     clk => clk, 
-    --     wr_en => '1', 
-    --     reset => reset, 
-    --     data_out => pc_out
-    -- );
 
     opcode <= instr_in(16 downto 12);
 

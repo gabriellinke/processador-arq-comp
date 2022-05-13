@@ -19,7 +19,7 @@ architecture a_rom_tb of rom_tb is
     signal finished : std_logic := '0';
     signal clk : std_logic;
     signal address : unsigned(11 downto 0) := "000000000000";
-    signal data : unsigned(16 downto 0);
+    signal data : unsigned(16 downto 0) := "00000000000000000";
 
 begin
     uut: rom port map (clk => clk, address => address, data => data);

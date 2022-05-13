@@ -27,13 +27,6 @@ architecture a_pc_control of pc_control is
     signal pc_in, pc_out: signed(11 downto 0) := "000000000000";
 begin
 
-    process (reset, clk)
-    begin
-        if reset='1' then
-            pc_in<="000000000000";
-        end if;
-    end process;
-
     PC: reg12bits port map(  
         clk => clk,
         reset => reset,
@@ -42,7 +35,9 @@ begin
         data_out => pc_out
     );
 
-    pc_in <= data_in when jump_en = '1' else pc_out + 1;
+    pc_in <= "000000000000" when reset='1' else
+             data_in when jump_en = '1' else 
+             pc_out + 1;
 
     data_out <= pc_out;
 
