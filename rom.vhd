@@ -6,7 +6,7 @@ entity rom is
     port( 
         clk : in std_logic;
         address : in signed(11 downto 0); -- memória de programa:  1Kbyte = 1024bytes = 4096 bits = 2^12
-        data : out signed(16 downto 0)
+        data : out signed(16 downto 0) := "00000000000000000"
     );
 end entity;
 
