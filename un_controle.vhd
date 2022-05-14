@@ -21,7 +21,7 @@ architecture a_un_controle of un_controle is
         );
     end component;
 
-    signal estado_s: std_logic:='0';
+    signal estado_s: std_logic := '0';
     signal opcode: signed(4 downto 0) := "00000";
 begin
     MAQ: maquina_estados port map(

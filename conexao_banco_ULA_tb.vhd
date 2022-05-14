@@ -55,7 +55,7 @@ begin
 
     sim_time_proc: process
     begin
-        wait for 1400 ns; 
+        wait for 2300 ns; 
         finished <= '1';
         wait;
     end process sim_time_proc;
@@ -74,6 +74,16 @@ begin
     process -- sinais dos casos de teste
     begin
         wait for period_time * 2;
+
+        -- Tenta gravar no registrador 0 a soma do valor armazenado no registrador 0 com o valor de in_data
+        wr_en_in <= '1';
+        sel_reg_1_in <= "000";
+        sel_reg_2_in <= "000";
+        sel_reg_write_in <= "000";
+        in_data <= "1111111111111111";
+        ULA_src_in <= '1';
+        opselect_in <= "00";
+        wait for period_time;
 
         -- Grava no registrador 1 a soma do valor armazenado no registrador 0 com o valor de in_data
         wr_en_in <= '1';
@@ -145,75 +155,125 @@ begin
         opselect_in <= "00";
         wait for period_time;
 
-        -- Grava no resgistrador 0 a diferença entre os valores armazenados no registrador 7 e no registrador 1
+        -- Grava no resgistrador 1 a diferença entre os valores armazenados no registrador 7 e no registrador 2
         wr_en_in <= '1';
         sel_reg_1_in <= "111";
-        sel_reg_2_in <= "001";
-        sel_reg_write_in <= "000";
+        sel_reg_2_in <= "010";
+        sel_reg_write_in <= "001";
         in_data <= "0000000000000000";
         ULA_src_in <= '0';
         opselect_in <= "01";
         wait for period_time;
 
-        -- Grava no resgistrador 0 a diferença entre os valores armazenados no registrador 6 e no registrador 2
+        -- Grava no resgistrador 1 a diferença entre os valores armazenados no registrador 6 e no registrador 3
         wr_en_in <= '1';
         sel_reg_1_in <= "110";
-        sel_reg_2_in <= "010";
-        sel_reg_write_in <= "000";
+        sel_reg_2_in <= "011";
+        sel_reg_write_in <= "001";
         in_data <= "0000000000000000";
         ULA_src_in <= '0';
         opselect_in <= "01";
         wait for period_time;
 
-        -- Grava no resgistrador 0 a diferença entre os valores armazenados no registrador 5 e no registrador 3
+        -- Grava no resgistrador 1 a diferença entre os valores armazenados no registrador 5 e no registrador 4
         wr_en_in <= '1';
         sel_reg_1_in <= "101";
-        sel_reg_2_in <= "011";
-        sel_reg_write_in <= "000";
+        sel_reg_2_in <= "100";
+        sel_reg_write_in <= "001";
         in_data <= "0000000000000000";
         ULA_src_in <= '0';
         opselect_in <= "01";
         wait for period_time;
 
-        -- Grava no resgistrador 0 a diferença entre os valores armazenados no registrador 4 e no registrador 4
+        -- Grava no resgistrador 1 a diferença entre os valores armazenados no registrador 4 e no registrador 5
         wr_en_in <= '1';
         sel_reg_1_in <= "100";
-        sel_reg_2_in <= "100";
-        sel_reg_write_in <= "000";
+        sel_reg_2_in <= "101";
+        sel_reg_write_in <= "001";
         in_data <= "0000000000000000";
         ULA_src_in <= '0';
         opselect_in <= "01";
         wait for period_time;
 
-        -- Grava no resgistrador 0 a diferença entre os valores armazenados no registrador 3 e no registrador 5
+        -- Grava no resgistrador 1 a diferença entre os valores armazenados no registrador 3 e no registrador 6
         wr_en_in <= '1';
         sel_reg_1_in <= "011";
-        sel_reg_2_in <= "101";
-        sel_reg_write_in <= "000";
+        sel_reg_2_in <= "110";
+        sel_reg_write_in <= "001";
         in_data <= "0000000000000000";
         ULA_src_in <= '0';
         opselect_in <= "01";
         wait for period_time;
 
-        -- Grava no resgistrador 0 a diferença entre os valores armazenados no registrador 2 e no registrador 6
+        -- Grava no resgistrador 1 a diferença entre os valores armazenados no registrador 2 e no registrador 7
         wr_en_in <= '1';
         sel_reg_1_in <= "010";
-        sel_reg_2_in <= "110";
-        sel_reg_write_in <= "000";
+        sel_reg_2_in <= "111";
+        sel_reg_write_in <= "001";
         in_data <= "0000000000000000";
         ULA_src_in <= '0';
         opselect_in <= "01";
         wait for period_time;
 
-        -- Grava no resgistrador 0 a diferença entre os valores armazenados no registrador 1 e no registrador 7
+        -- retorna se o valor armazenado no registrador 1 é maior ou igual ao valor de in_data
+        wr_en_in <= '0';
+        sel_reg_1_in <= "001";
+        sel_reg_2_in <= "000";
+        sel_reg_write_in <= "000";
+        in_data <= "0000000000000011";
+        ULA_src_in <= '1';
+        opselect_in <= "10";
+        wait for period_time;
+
+        -- retorna se o valor armazenado no registrador 2 é maior ou igual ao valor de in_data
+        wr_en_in <= '0';
+        sel_reg_1_in <= "011";
+        sel_reg_2_in <= "000";
+        sel_reg_write_in <= "000";
+        in_data <= "0000000000000011";
+        ULA_src_in <= '1';
+        opselect_in <= "10";
+        wait for period_time;
+
+        -- retorna se o valor armazenado no registrador 7 é maior ou igual ao valor de in_data
+        wr_en_in <= '0';
+        sel_reg_1_in <= "111";
+        sel_reg_2_in <= "000";
+        sel_reg_write_in <= "000";
+        in_data <= "0000000000000011";
+        ULA_src_in <= '1';
+        opselect_in <= "10";
+        wait for period_time;
+
+        -- Grava no registrador 1 o resultado da operação "and" entre os valores armazenados nos registradores 1 e 5
         wr_en_in <= '1';
         sel_reg_1_in <= "001";
-        sel_reg_2_in <= "111";
-        sel_reg_write_in <= "000";
+        sel_reg_2_in <= "101";
+        sel_reg_write_in <= "001";
         in_data <= "0000000000000000";
         ULA_src_in <= '0';
-        opselect_in <= "01";
+        opselect_in <= "11";
         wait for period_time;
+        
+        -- Grava no registrador 0 o resultado da operação "and" entre os valores armazenados nos registradores 1 e 1
+        wr_en_in <= '1';
+        sel_reg_1_in <= "001";
+        sel_reg_2_in <= "001";
+        sel_reg_write_in <= "001";
+        in_data <= "0000000000000000";
+        ULA_src_in <= '0';
+        opselect_in <= "11";
+        wait for period_time;  
+        
+        -- Grava no registrador 1 o resultado da operação "and" entre o valor armazenado no registrador 1 e o valor de in_data
+        wr_en_in <= '1';
+        sel_reg_1_in <= "001";
+        sel_reg_2_in <= "000";
+        sel_reg_write_in <= "001";
+        in_data <= "1110000000000000";
+        ULA_src_in <= '1';
+        opselect_in <= "11";
+        wait for period_time;        
     
         wait;
     end process;

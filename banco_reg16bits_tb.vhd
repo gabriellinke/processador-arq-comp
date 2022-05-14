@@ -128,7 +128,6 @@ begin
         sel_reg_write <= "111";
         sel_reg_1 <= "110";
         sel_reg_2 <= "111";
-        wait for period_time;
 
         wait;
     end process;

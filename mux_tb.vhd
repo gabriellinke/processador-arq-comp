@@ -32,7 +32,6 @@
                 sel <= '0';
                 wait for 50 ns;
                 sel <= '1';
-                wait for 50 ns;
                 wait;
             end process;
     end architecture a_mux_tb;

@@ -34,6 +34,6 @@ ghdl -a un_controle_tb.vhd
 ghdl -a top_level_controle.vhd
 ghdl -a top_level_controle_tb.vhd
 
-ghdl -r top_level_controle_tb --wave=result.ghw
+ghdl -r conexao_banco_ULA_tb --wave=result.ghw
 
 gtkwave result.ghw
