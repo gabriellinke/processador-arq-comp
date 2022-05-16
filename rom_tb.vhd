@@ -42,7 +42,7 @@ begin
         wait;
     end process clk_proc;
 
-    process -- sinais dos casos de teste
+    process 
     begin
         while finished /= '1' loop
             wait for period_time;

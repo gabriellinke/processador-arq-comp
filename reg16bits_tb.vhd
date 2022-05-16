@@ -18,8 +18,8 @@ architecture a_reg16bits_tb of reg16bits_tb is
 
     -- 100 ns é o período que escolhi para o clock
     constant period_time : time := 100 ns;
-    signal finished : std_logic := '0';
-    signal clk, reset, wr_en : std_logic;
+    signal clk : std_logic ;
+    signal finished, reset, wr_en : std_logic := '0';
     signal data_in, data_out : signed(15 downto 0);
 begin
     uut: reg16bits port map(  
@@ -32,10 +32,6 @@ begin
 
     reset_global: process
     begin
-        reset <= '1';
-        wait for period_time * 2; -- espera 2 clocks, pra garantir
-        reset <= '0';
-        wait for period_time * 14; 
         reset <= '1';
         wait for period_time * 2; -- espera 2 clocks, pra garantir
         reset <= '0';
@@ -62,6 +58,7 @@ begin
 
     process -- sinais dos casos de teste (p.ex.)
     begin
+        data_in <= "0000000000000000";
         wait for period_time * 2;
         wr_en <= '0';
         data_in <= "1111111111111111";
