@@ -49,7 +49,7 @@ begin
 
     sim_time_proc: process
     begin
-        wait for 10 us; 
+        wait for 2 us; 
         finished <= '1';
         wait;
     end process sim_time_proc;
@@ -233,7 +233,6 @@ begin
         sel_reg_write <= "111";
         sel_reg_1 <= "110";
         sel_reg_2 <= "111";
-        wait for period_time;
 
         -- Tenta escrever no registrador 0 e mostra o conteúdo dele e do registrador 7
         data_in <= "1010001110101000";

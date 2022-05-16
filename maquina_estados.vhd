@@ -11,7 +11,7 @@ entity maquina_estados is
 end entity;
 
 architecture a_maquina_estados of maquina_estados is
-    signal estado_s: std_logic;
+    signal estado_s: std_logic := '0';
 begin
     process(clk,reset) -- acionado se houver mudança em clk, rst ou wr_en
     begin
