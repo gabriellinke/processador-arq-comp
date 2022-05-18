@@ -73,6 +73,25 @@ Instruções (Mnemônicos / Operandos / Descrição / Operação)
 
 	Instruções de acesso à memória (modo de endereçamento indireto): 
 		
+		
+The AVR core combines a rich instruction set with 32 general purpose working registers. All the 32 registers are
+directly connected to the Arithmetic Logic Unit (ALU), allowing two independent registers to be accessed in one
+single instruction executed in one clock cycle.
+
+In a single clock cycle an ALU operation using
+two register operands is executed, and the result is stored back to the destination register.
+
+- In-System Reprogrammable Flash Program Memory
+
+The ATmega48A/PA/88A/PA/168A/PA/328/P Program Counter (PC) is 11/12/13/14 bits wide, thus addressing the
+2/4/8/16K program memory locations. 
+Since all AVR instructions are 16 or 32 bits wide, the Flash is organized as 2/4/8/16K x 16
+
+=> Tem 16K localizações da memória. Cada localização tem 17 bits, então nossa memória tem (16348*17) = 278528 bits = 34816 bytes
+
+- EEPROM Data Memory
+
+The ATmega48A/PA/88A/PA/168A/PA/328/P contains 256/512/512/1Kbytes of data EEPROM memory.
 
 
 
