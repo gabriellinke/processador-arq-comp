@@ -1,0 +1,79 @@
+AVR CPU Core - General Purpose Register File
+
+	The fast-access Register File contains 32 x 8-bit general purpose working registers with a single clock cycle access time. This allows single-cycle Arithmetic Logic Unit (ALU) operation. In a typical ALU operation, two operands are output from the Register File, the operation is executed, and the result is stored back in the Register File – in one clock cycle. Six of the 32 registers can be used as three 16-bit indirect address register pointers for Data Space addressing – enabling efficient address calculations. One of the these address pointers can also be used as an address pointer for look up tables in Flash program memory. These added function registers are the 16-bit X-, Y-, and Z-register.
+
+	The Register File is optimized for the AVR Enhanced RISC instruction set. In order to achieve the required performance and flexibility, the following input/output schemes are supported by the Register File:
+	- One 8-bit output operand and one 8-bit result input
+	- Two 8-bit output operands and one 8-bit result input
+	- Two 8-bit output operands and one 16-bit result input
+	- One 16-bit output operand and one 16-bit result input
+
+	The X-register, Y-register, and Z-register:
+		The registers R26...R31 have some added functions to their general purpose usage. These registers are 16-bit address pointers for indirect addressing of the data space.
+		In the different addressing modes these address registers have functions as fixed displacement, automatic increment, and automatic decrement (see the instruction set reference for details).
+
+
+AVR CPU Core - Status Register
+	The Status Register contains information about the result of the most recently executed arithmetic instruction
+		Bit 7 – I: Global Interrupt Enable
+		Bit 6 – T: Bit Copy Storage
+		Bit 5 – H: Half Carry Flag
+		Bit 4 – S: Sign Bit, S = N XOR V
+		Bit 3 – V: Two’s Complement Overflow Flag
+		Bit 2 – N: Negative Flag
+		Bit 1 – Z: Zero Flag
+		Bit 0 – C: Carry Flag
+
+
+AVR Memories - Register Description
+
+	EEARH and EEARL – The EEPROM Address Register
+		Bits [15:10] – Reserved
+		Bits 9:0 – EEAR[9:0]: EEPROM Address
+		
+	EEDR – The EEPROM Data Register
+		Bits 7:0 – EEDR[7:0]: EEPROM Data
+		
+	EECR – The EEPROM Control Register
+		Bits 7:6 – Reserved
+		Bits 5, 4 – EEPM1 and EEPM0: EEPROM Programming Mode Bits
+		Bit 3 – EERIE: EEPROM Ready Interrupt Enable
+		Bit 2 – EEMPE: EEPROM Master Write Enable
+		Bit 1 – EEPE: EEPROM Write Enable
+		Bit 0 – EERE: EEPROM Read Enable
+		
+	GPIOR2 – General Purpose I/O Register 2
+	GPIOR1 – General Purpose I/O Register 1
+	GPIOR0 – General Purpose I/O Register 0
+
+
+
+Instruções (Mnemônicos / Operandos / Descrição / Operação)
+	
+	Carga de constante: 
+		LDI / Rd, K / Load Immediate / Rd ← K
+		
+	Cópia de valor entre registradores: 
+		MOV / Rd, Rr / Move Between Registers / Rd ← Rr
+	
+	Soma de dois valores: 
+		ADD / Rd, Rr / Add two Registers / Rd ← Rd + Rr
+	
+	Subtração de dois valores: 
+		SUB / Rd, Rr / Subtract two Registers / Rd ← Rd - Rr
+		SUBI / Rd, K / Subtract Constant from Register / Rd ← Rd - K
+		
+	Desvio incondicional: 
+		RJMP / k / Relative Jump / PC ← PC + k + 1
+		JMP / k / Direct Jump / PC ← k
+		
+	Desvio condicional: 
+		BREQ / k / Branch if Equal / if (Z = 1) then PC ← PC + k + 1
+		BRNE / k / Branch if Not Equal / if (Z = 0) then PC ← PC + k + 1
+
+	Instruções de acesso à memória (modo de endereçamento indireto): 
+		
+
+
+
+
