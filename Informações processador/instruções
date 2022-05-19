@@ -1,0 +1,42 @@
+
+Formato R
+00000 [opcode](5) reg1(3) reg2(3) function(6)
+
+Formato I
+opcode(5) reg1(3) constante imediata(9)
+
+Formato J
+opcode(5) endereço destino(12)
+
+
+Opcodes formato I
+
+	Instruction
+		LDI -> opcode 01000
+		SUBI -> opcode 00010
+		
+
+Valores do campo function para instruções formato R
+
+	Instruction
+		NOP -> function 000000
+		ADD -> function 100000
+		SUB -> function 100010
+		MOV -> function 100001
+		
+Opcodes formato J
+	
+	Instruction
+		JMP -> opcode 11111
+		
+
+Códigos das instruções
+
+ADD Rd, Rr = 00000 DDD RRR 100000
+SUB Rd, Rr = 00000 DDD RRR 100010
+MOV Rd, Rr = 00000 DDD RRR 100001
+
+LDI Rd, K = 01000 DDD KKKKKKKKK
+SUBI Rd, K = 00010 DDD KKKKKKKKK
+
+JMP AAAAAAAAAAAA = 11111 AAAAAAAAAAAA
