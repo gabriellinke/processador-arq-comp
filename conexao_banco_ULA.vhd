@@ -14,6 +14,7 @@ entity conexao_banco_ULA is
         ULA_src_in : in std_logic;
         opselect_in : in unsigned(1 downto 0);
 
+        reg_1_out, reg_2_out : out signed(15 downto 0);
         ULA_out_data : out signed(15 downto 0);
         ULA_out_greater_equal_or_signal : out std_logic;
         ULA_out_zero : out std_logic
@@ -83,6 +84,8 @@ begin
         output_zero=>out_zero
     );
     
+    reg_1_out <= banco_out_1;
+    reg_2_out <= banco_out_2;
     ULA_out_data <= out_data;
     ULA_out_greater_equal_or_signal <= out_greater_equal_or_signal;
     ULA_out_zero <= out_zero;
