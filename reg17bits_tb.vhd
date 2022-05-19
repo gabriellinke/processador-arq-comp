@@ -5,7 +5,7 @@ use ieee.numeric_std.all;
 entity reg17bits_tb is
 end entity;
 
-architecture a_reg16bits_tb of reg16bits_tb is
+architecture a_reg17bits_tb of reg17bits_tb is
     component reg17bits is 
         port( 
             clk : in std_logic;
@@ -22,7 +22,7 @@ architecture a_reg16bits_tb of reg16bits_tb is
     signal finished, reset, wr_en : std_logic := '0';
     signal data_in, data_out : signed(16 downto 0);
 begin
-    uut: reg16bits port map(  
+    uut: reg17bits port map(  
         clk => clk,
         reset => reset,
         wr_en => wr_en,
@@ -79,4 +79,4 @@ begin
         wr_en <= '0';
         wait;
     end process;
-end architecture a_reg16bits_tb;
+end architecture a_reg17bits_tb;
