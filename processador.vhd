@@ -75,9 +75,8 @@ architecture a_processador of processador is
 
     signal reg1_out_s, reg2_out_s : signed(15 downto 0) := "0000000000000000";
     signal rom_read : std_logic := '1';
-    signal pc_write : std_logic := '0';
-    signal jump_en : std_logic := '0';
-    signal pc_out : signed(11 downto 0) := "000000000000";
+    signal pc_write, jump_en, exec : std_logic := '0';
+    signal pc_out_s : signed(11 downto 0) := "000000000000";
     signal rom_out : signed(16 downto 0) := "00000000000000000";
     signal instr_reg_out : signed(16 downto 0) := "00000000000000000";
     signal ULA_opselect, estado: unsigned(1 downto 0) := "00";
@@ -86,7 +85,7 @@ architecture a_processador of processador is
 begin
     MEM_ROM: rom port map(
         clk => clk,
-        address => pc_out,
+        address => pc_out_s,
         data => rom_out
     );
 
@@ -96,7 +95,7 @@ begin
         reset => reset,
         jump_en => jump_en,
         data_in => rom_out(11 downto 0),
-        data_out => pc_out
+        data_out => pc_out_s
     );
 
     UC: un_controle port map(
@@ -123,7 +122,7 @@ begin
         sel_reg_1_in => instr_reg_out(11 downto 9), 
         sel_reg_2_in => instr_reg_out(8 downto 6), 
         sel_reg_write_in => instr_reg_out(11 downto 9), 
-        in_data => "0000000000000000" -- vem da instrução (extender sinal)
+        in_data => instr_reg_out(8) & instr_reg_out(8) & instr_reg_out(8) & instr_reg_out(8) & instr_reg_out(8) & instr_reg_out(8) & instr_reg_out(8) & instr_reg_out(8 downto 0),
         clk_in => clk,
         wr_en_in => exec,
         reset_in => reset,
@@ -136,13 +135,12 @@ begin
         ULA_out_zero => ULA_out_zero
     );
     
-begin
     ULA_opselect <= "00" when instr_reg_out(5 downto 0) = "100000" else
                     "01" when instr_reg_out(5 downto 0) = "100010" else
                     "11";
     
     estado_out <= estado;
-    pc_out <= pc_out;
+    pc_out <= pc_out_s;
     instr_out <= instr_reg_out;
     reg1_out <= reg1_out_s;
     reg2_out <= reg2_out_s;

@@ -3,9 +3,11 @@
 ghdl -a reg16bits.vhd
 ghdl -a reg16bits_tb.vhd
 
-
 ghdl -a reg12bits.vhd
 ghdl -a reg12bits_tb.vhd
+
+ghdl -a reg17bits.vhd
+ghdl -a reg17bits_tb.vhd
 
 ghdl -a banco_reg16bits.vhd
 ghdl -a banco_reg16bits_tb.vhd
@@ -31,9 +33,12 @@ ghdl -a pc_control_tb.vhd
 ghdl -a un_controle.vhd
 ghdl -a un_controle_tb.vhd
 
-ghdl -a top_level_controle.vhd
-ghdl -a top_level_controle_tb.vhd
+ghdl -a processador.vhd
+ghdl -a processador_tb.vhd
 
-ghdl -r top_level_controle_tb --wave=result.ghw
+# ghdl -a top_level_controle.vhd
+# ghdl -a top_level_controle_tb.vhd
+
+ghdl -r processador_tb --wave=result.ghw
 
 gtkwave result.ghw
