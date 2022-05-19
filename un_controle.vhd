@@ -17,11 +17,11 @@ architecture a_un_controle of un_controle is
         port(
             clk : in std_logic;
             reset : in std_logic;
-            estado : out std_logic
+            estado : out unsigned(1 downto 0)
         );
     end component;
 
-    signal estado_s: std_logic := '0';
+    signal estado_s: unsigned(1 downto 0) := "00";
     signal opcode: signed(4 downto 0) := "00000";
 begin
     MAQ: maquina_estados port map(
@@ -32,13 +32,13 @@ begin
 
     opcode <= instr_in(16 downto 12);
 
-    rom_read <= '1' when estado_s = '0' else
+    rom_read <= '1' when estado_s = "00" else
                 '0';
 
-    pc_write <= '1' when estado_s = '1' else
+    pc_write <= '1' when estado_s = "01" else
                 '0';
 
-    jump_en <=  '1' when opcode="11111" else
+    jump_en <= '1' when opcode= "11111" else
                 '0';
     
 end architecture a_un_controle;

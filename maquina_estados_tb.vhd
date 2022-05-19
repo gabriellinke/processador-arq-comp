@@ -10,13 +10,14 @@ architecture a_maquina_estados_tb of maquina_estados_tb is
         port(
             clk : in std_logic;
             reset : in std_logic;
-            estado : out std_logic
+            estado : out unsigned(1 downto 0)
         );
     end component;
 
     constant period_time : time := 100 ns;
     signal finished : std_logic := '0';
-    signal clk, reset, estado : std_logic;
+    signal clk, reset : std_logic := '0';
+    signal estado : unsigned(1 downto 0) := "00";
 begin
     uut: maquina_estados port map(
         clk => clk,
