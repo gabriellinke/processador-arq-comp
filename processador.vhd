@@ -80,7 +80,7 @@ architecture a_processador of processador is
     signal rom_out : unsigned(16 downto 0) := "00000000000000000";
     signal instr_reg_out : unsigned(16 downto 0) := "00000000000000000";
     signal ULA_opselect, estado: unsigned(1 downto 0) := "00";
-    signal ULA_out_data : unsigned(15 downto 0) := "0000000000000000";
+    signal ULA_out_data, extended_signal : unsigned(15 downto 0) := "0000000000000000";
     signal ULA_src, ULA_out_greater_equal_or_signal, ULA_out_zero: std_logic := '0';
 begin
     MEM_ROM: rom port map(
@@ -122,7 +122,7 @@ begin
         sel_reg_1_in => instr_reg_out(11 downto 9), 
         sel_reg_2_in => instr_reg_out(8 downto 6), 
         sel_reg_write_in => instr_reg_out(11 downto 9), 
-        in_data => instr_reg_out(8) & instr_reg_out(8) & instr_reg_out(8) & instr_reg_out(8) & instr_reg_out(8) & instr_reg_out(8) & instr_reg_out(8) & instr_reg_out(8 downto 0),
+        in_data => extended_signal,
         clk_in => clk,
         wr_en_in => exec,
         reset_in => reset,
@@ -147,4 +147,5 @@ begin
     ULA_result_out <= ULA_out_data;
     ULA_geq_sig_out <= ULA_out_greater_equal_or_signal;
     ULA_zero_out <= ULA_out_zero;
+    extended_signal <= instr_reg_out(8) & instr_reg_out(8) & instr_reg_out(8) & instr_reg_out(8) & instr_reg_out(8) & instr_reg_out(8) & instr_reg_out(8) & instr_reg_out(8 downto 0);
 end architecture;
