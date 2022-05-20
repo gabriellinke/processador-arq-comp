@@ -4,10 +4,10 @@ use ieee.numeric_std.all;
 
 entity mux is
     port(
-        in_data_1 : in signed(15 downto 0);
-        in_data_2 : in signed(15 downto 0);
+        in_data_1 : in unsigned(15 downto 0);
+        in_data_2 : in unsigned(15 downto 0);
         input_sel : in std_logic;
-        out_data : out signed(15 downto 0)
+        out_data : out unsigned(15 downto 0)
     );
 end entity;
 

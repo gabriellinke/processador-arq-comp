@@ -4,11 +4,11 @@ use ieee.numeric_std.all;
 
 entity ULA is
     port(   
-        input1, input2 : in signed(15 downto 0);
+        input1, input2 : in unsigned(15 downto 0);
 
         opselect: in unsigned(1 downto 0);
 
-        output1 : out signed(15 downto 0);
+        output1 : out unsigned(15 downto 0);
         output_greater_equal_or_signal : out std_logic;
         output_zero : out std_logic
     );

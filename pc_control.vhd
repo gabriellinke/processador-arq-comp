@@ -8,8 +8,8 @@ entity pc_control is
         wr_en : in std_logic;
         reset : in std_logic;
         jump_en : in std_logic;
-        data_in : in signed(11 downto 0);
-        data_out : out signed(11 downto 0)
+        data_in : in unsigned(11 downto 0);
+        data_out : out unsigned(11 downto 0)
     );    
 end entity pc_control;
 
@@ -19,12 +19,12 @@ architecture a_pc_control of pc_control is
             clk : in std_logic;
             reset : in std_logic;
             wr_en : in std_logic;
-            data_in : in signed(11 downto 0);
-            data_out : out signed(11 downto 0)
+            data_in : in unsigned(11 downto 0);
+            data_out : out unsigned(11 downto 0)
         );
     end component;
 
-    signal pc_in, pc_out: signed(11 downto 0) := "000000000000";
+    signal pc_in, pc_out: unsigned(11 downto 0) := "000000000000";
 begin
 
     PC: reg12bits port map(  

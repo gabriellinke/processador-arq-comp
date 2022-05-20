@@ -12,8 +12,8 @@ architecture a_pc_control_tb of pc_control_tb is
             wr_en : in std_logic;
             reset : in std_logic;
             jump_en : in std_logic;
-            data_in : in signed(11 downto 0);
-            data_out : out signed(11 downto 0)
+            data_in : in unsigned(11 downto 0);
+            data_out : out unsigned(11 downto 0)
         );    
     end component pc_control;
 
@@ -23,7 +23,7 @@ architecture a_pc_control_tb of pc_control_tb is
     signal clk : std_logic;
     signal wr_en : std_logic := '1';
     signal jump_en : std_logic := '0';
-    signal data_in, data_out : signed(11 downto 0) := "000000000000";
+    signal data_in, data_out : unsigned(11 downto 0) := "000000000000";
 
 begin
     controller: pc_control port map (clk => clk, wr_en => wr_en, reset => reset, jump_en => jump_en, data_in => data_in, data_out => data_out);

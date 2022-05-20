@@ -11,8 +11,8 @@ architecture a_reg16bits_tb of reg16bits_tb is
             clk : in std_logic;
             reset : in std_logic;
             wr_en : in std_logic;
-            data_in : in signed(15 downto 0);
-            data_out : out signed(15 downto 0)
+            data_in : in unsigned(15 downto 0);
+            data_out : out unsigned(15 downto 0)
         );
     end component;
 
@@ -20,7 +20,7 @@ architecture a_reg16bits_tb of reg16bits_tb is
     constant period_time : time := 100 ns;
     signal clk : std_logic ;
     signal finished, reset, wr_en : std_logic := '0';
-    signal data_in, data_out : signed(15 downto 0);
+    signal data_in, data_out : unsigned(15 downto 0);
 begin
     uut: reg16bits port map(  
         clk => clk,

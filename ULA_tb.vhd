@@ -7,15 +7,15 @@ end entity;
 
 architecture a_ULA_tb of ULA_tb is
     component ULA
-        port(   input1, input2 : in signed(15 downto 0);
+        port(   input1, input2 : in unsigned(15 downto 0);
                 opselect : in unsigned(1 downto 0);
-                output1 : out signed(15 downto 0);
+                output1 : out unsigned(15 downto 0);
                 output_greater_equal_or_signal : out std_logic;
                 output_zero : out std_logic
             );
     end component;
     
-    signal input1, input2, output1 : signed(15 downto 0) := "0000000000000000";
+    signal input1, input2, output1 : unsigned(15 downto 0) := "0000000000000000";
     signal opselect : unsigned(1 downto 0) := "00";
     signal output_greater_equal_or_signal, output_zero : std_logic := '0';
     ----------------------
@@ -212,9 +212,14 @@ begin
         input2 <= "0000011000100010";
         opselect <= "10";
         wait for 50 ns;
-        -- input1 > input2 (negative)
+        -- input1 > input2 (both negative)
         input1 <= "1111100111001111";
         input2 <= "1110011000100010";
+        opselect <= "10";
+        wait for 50 ns;
+        -- input1 > input2 (first negative, second positive)
+        input1 <= "1111100111001111";
+        input2 <= "0110011000100010";
         opselect <= "10";
         wait for 50 ns;
     -------------------------------------------------

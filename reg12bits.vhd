@@ -7,13 +7,13 @@ entity reg12bits is
         clk : in std_logic;
         reset : in std_logic;
         wr_en : in std_logic;
-        data_in : in signed(11 downto 0);
-        data_out : out signed(11 downto 0)
+        data_in : in unsigned(11 downto 0);
+        data_out : out unsigned(11 downto 0)
     );
 end entity;
 
 architecture a_reg12bits of reg12bits is
-    signal registro: signed(11 downto 0) := "000000000000";
+    signal registro: unsigned(11 downto 0) := "000000000000";
 begin
     process(clk,reset,wr_en) -- acionado se houver mudança em clk, rst ou wr_en
     begin

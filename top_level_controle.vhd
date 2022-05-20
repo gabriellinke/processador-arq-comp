@@ -5,7 +5,7 @@ use ieee.numeric_std.all;
 entity top_level_controle is
     port(
         clk, wr_en, reset : in std_logic;
-        data_out : out signed(16 downto 0)
+        data_out : out unsigned(16 downto 0)
     );
 end entity;
 
@@ -13,8 +13,8 @@ architecture a_top_level_controle of top_level_controle is
     component rom is
         port( 
             clk : in std_logic;
-            address : in signed(11 downto 0); -- memória de programa:  1Kbyte = 1024bytes = 4096 bits = 2^12
-            data : out signed(16 downto 0)
+            address : in unsigned(11 downto 0); -- memória de programa:  1Kbyte = 1024bytes = 4096 bits = 2^12
+            data : out unsigned(16 downto 0)
         );
     end component;
 
@@ -24,8 +24,8 @@ architecture a_top_level_controle of top_level_controle is
             wr_en : in std_logic;
             reset : in std_logic;
             jump_en : in std_logic;
-            data_in : in signed(11 downto 0);
-            data_out : out signed(11 downto 0)
+            data_in : in unsigned(11 downto 0);
+            data_out : out unsigned(11 downto 0)
         );   
     end component;
 
@@ -33,7 +33,7 @@ architecture a_top_level_controle of top_level_controle is
         port(
             clk : in std_logic;
             reset : in std_logic;
-            instr_in : in signed(16 downto 0);
+            instr_in : in unsigned(16 downto 0);
             rom_read, pc_write, jump_en : out std_logic
         );
     end component;
@@ -41,8 +41,8 @@ architecture a_top_level_controle of top_level_controle is
     signal rom_read : std_logic := '1';
     signal pc_write : std_logic := '0';
     signal jump_en : std_logic := '0';
-    signal pc_out : signed(11 downto 0) := "000000000000";
-    signal rom_out : signed(16 downto 0) := "00000000000000000";
+    signal pc_out : unsigned(11 downto 0) := "000000000000";
+    signal rom_out : unsigned(16 downto 0) := "00000000000000000";
 begin
     MEM_ROM: rom port map(
         clk => clk,

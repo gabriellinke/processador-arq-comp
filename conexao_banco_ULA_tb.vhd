@@ -11,14 +11,14 @@ architecture a_conexao_banco_ULA_tb of conexao_banco_ULA_tb is
             sel_reg_1_in : in unsigned(2 downto 0); 
             sel_reg_2_in : in unsigned(2 downto 0); 
             sel_reg_write_in : in unsigned(2 downto 0); 
-            in_data : in signed(15 downto 0);
+            in_data : in unsigned(15 downto 0);
             clk_in : in std_logic;
             wr_en_in : in std_logic;
             reset_in : in std_logic;
             ULA_src_in : in std_logic;
             opselect_in : in unsigned(1 downto 0);
 
-            ULA_out_data : out signed(15 downto 0);
+            ULA_out_data : out unsigned(15 downto 0);
             ULA_out_greater_equal_or_signal : out std_logic;
             ULA_out_zero : out std_logic
         );
@@ -28,7 +28,7 @@ architecture a_conexao_banco_ULA_tb of conexao_banco_ULA_tb is
     signal clk_in, wr_en_in, reset_in, ULA_src_in, ULA_out_greater_equal_or_signal, ULA_out_zero: std_logic := '0';
     signal opselect_in : unsigned(1 downto 0) := "00";
     signal sel_reg_1_in, sel_reg_2_in, sel_reg_write_in : unsigned(2 downto 0) := "000";
-    signal in_data, ULA_out_data : signed(15 downto 0) := "0000000000000000";
+    signal in_data, ULA_out_data : unsigned(15 downto 0) := "0000000000000000";
 begin
     uut : conexao_banco_ula port map(
         sel_reg_1_in=>sel_reg_1_in,

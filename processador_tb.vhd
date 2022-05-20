@@ -13,8 +13,8 @@ architecture a_processador_tb of processador_tb is
             estado_out: out unsigned(1 downto 0);
             pc_out: out unsigned(11 downto 0);
             instr_out: out unsigned(16 downto 0);
-            reg1_out, reg2_out: out signed(15 downto 0);
-            ULA_result_out: out signed(15 downto 0);
+            reg1_out, reg2_out: out unsigned(15 downto 0);
+            ULA_result_out: out unsigned(15 downto 0);
             ULA_geq_sig_out, ULA_zero_out: out std_logic
         );
     end component;
@@ -24,7 +24,7 @@ architecture a_processador_tb of processador_tb is
     signal estado_out : unsigned(1 downto 0) := "00";
     signal pc_out : unsigned(11 downto 0) := "000000000000";
     signal instr_out : unsigned(16 downto 0) := "00000000000000000";
-    signal reg1_out, reg2_out, ULA_result_out : signed(15 downto 0) := "0000000000000000";
+    signal reg1_out, reg2_out, ULA_result_out : unsigned(15 downto 0) := "0000000000000000";
 
 begin
 

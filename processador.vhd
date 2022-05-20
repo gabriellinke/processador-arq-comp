@@ -8,8 +8,8 @@ entity processador is
         estado_out: out unsigned(1 downto 0);
         pc_out: out unsigned(11 downto 0);
         instr_out: out unsigned(16 downto 0);
-        reg1_out, reg2_out: out signed(15 downto 0);
-        ULA_result_out: out signed(15 downto 0);
+        reg1_out, reg2_out: out unsigned(15 downto 0);
+        ULA_result_out: out unsigned(15 downto 0);
         ULA_geq_sig_out, ULA_zero_out: out std_logic
     );
 end entity;
@@ -18,8 +18,8 @@ architecture a_processador of processador is
     component rom is
         port(
             clk: in std_logic;
-            address: in signed(11 downto 0);
-            data: out signed(16 downto 0) := "00000000000000000"
+            address: in unsigned(11 downto 0);
+            data: out unsigned(16 downto 0) := "00000000000000000"
         );
     end component;
 
@@ -27,7 +27,7 @@ architecture a_processador of processador is
         port(
             clk : in std_logic;
             reset : in std_logic;
-            instr_in : in signed(16 downto 0);
+            instr_in : in unsigned(16 downto 0);
             estado_out : out unsigned(1 downto 0);
             rom_read, pc_write, jump_en, exec, ULA_src : out std_logic
         );
@@ -38,15 +38,15 @@ architecture a_processador of processador is
             sel_reg_1_in : in unsigned(2 downto 0); 
             sel_reg_2_in : in unsigned(2 downto 0); 
             sel_reg_write_in : in unsigned(2 downto 0); 
-            in_data : in signed(15 downto 0);
+            in_data : in unsigned(15 downto 0);
             clk_in : in std_logic;
             wr_en_in : in std_logic;
             reset_in : in std_logic;
             ULA_src_in : in std_logic;
             opselect_in : in unsigned(1 downto 0);
     
-            reg_1_out, reg_2_out : out signed(15 downto 0);
-            ULA_out_data : out signed(15 downto 0);
+            reg_1_out, reg_2_out : out unsigned(15 downto 0);
+            ULA_out_data : out unsigned(15 downto 0);
             ULA_out_greater_equal_or_signal : out std_logic;
             ULA_out_zero : out std_logic
         );
@@ -58,8 +58,8 @@ architecture a_processador of processador is
             wr_en : in std_logic;
             reset : in std_logic;
             jump_en : in std_logic;
-            data_in : in signed(11 downto 0);
-            data_out : out signed(11 downto 0)
+            data_in : in unsigned(11 downto 0);
+            data_out : out unsigned(11 downto 0)
         ); 
     end component;
 
@@ -68,19 +68,19 @@ architecture a_processador of processador is
             clk : in std_logic;
             reset : in std_logic;
             wr_en : in std_logic;
-            data_in : in signed(16 downto 0);
-            data_out : out signed(16 downto 0)
+            data_in : in unsigned(16 downto 0);
+            data_out : out unsigned(16 downto 0)
         );
     end component;
 
-    signal reg1_out_s, reg2_out_s : signed(15 downto 0) := "0000000000000000";
+    signal reg1_out_s, reg2_out_s : unsigned(15 downto 0) := "0000000000000000";
     signal rom_read : std_logic := '1';
     signal pc_write, jump_en, exec : std_logic := '0';
-    signal pc_out_s : signed(11 downto 0) := "000000000000";
-    signal rom_out : signed(16 downto 0) := "00000000000000000";
-    signal instr_reg_out : signed(16 downto 0) := "00000000000000000";
+    signal pc_out_s : unsigned(11 downto 0) := "000000000000";
+    signal rom_out : unsigned(16 downto 0) := "00000000000000000";
+    signal instr_reg_out : unsigned(16 downto 0) := "00000000000000000";
     signal ULA_opselect, estado: unsigned(1 downto 0) := "00";
-    signal ULA_out_data : signed(15 downto 0) := "0000000000000000";
+    signal ULA_out_data : unsigned(15 downto 0) := "0000000000000000";
     signal ULA_src, ULA_out_greater_equal_or_signal, ULA_out_zero: std_logic := '0';
 begin
     MEM_ROM: rom port map(

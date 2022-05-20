@@ -11,8 +11,8 @@ architecture a_reg12bits_tb of reg12bits_tb is
             clk : in std_logic;
             reset : in std_logic;
             wr_en : in std_logic;
-            data_in : in signed(11 downto 0);
-            data_out : out signed(11 downto 0)
+            data_in : in unsigned(11 downto 0);
+            data_out : out unsigned(11 downto 0)
         );
     end component;
 
@@ -20,7 +20,7 @@ architecture a_reg12bits_tb of reg12bits_tb is
     constant period_time : time := 100 ns;
     signal clk : std_logic;
     signal finished, reset, wr_en : std_logic := '0';
-    signal data_in, data_out : signed(11 downto 0) := "000000000000";
+    signal data_in, data_out : unsigned(11 downto 0) := "000000000000";
 begin
     uut: reg12bits port map(  
         clk => clk,

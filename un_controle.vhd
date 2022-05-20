@@ -6,7 +6,7 @@ entity un_controle is
     port(
         clk : in std_logic;
         reset : in std_logic;
-        instr_in : in signed(16 downto 0);
+        instr_in : in unsigned(16 downto 0);
         estado_out : out unsigned(1 downto 0);
         rom_read, pc_write, jump_en, exec, ULA_src : out std_logic
     );
@@ -22,7 +22,7 @@ architecture a_un_controle of un_controle is
     end component;
 
     signal estado_s: unsigned(1 downto 0) := "00";
-    signal opcode: signed(4 downto 0) := "00000";
+    signal opcode: unsigned(4 downto 0) := "00000";
     
 begin
     MAQ: maquina_estados port map(

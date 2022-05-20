@@ -9,14 +9,14 @@ architecture a_top_level_controle_tb of top_level_controle_tb is
     component top_level_controle is
         port(
             clk, wr_en, reset : in std_logic;
-            data_out : out signed(16 downto 0)
+            data_out : out unsigned(16 downto 0)
         );
     end component;
 
     constant period_time : time := 100 ns;
     signal finished : std_logic := '0';
     signal clk_s, reset_S : std_logic;
-    signal data_out_s : signed(16 downto 0);
+    signal data_out_s : unsigned(16 downto 0);
 begin
     uut: top_level_controle port map(
         clk=>clk_s,

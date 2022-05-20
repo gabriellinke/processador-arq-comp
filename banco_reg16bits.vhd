@@ -10,9 +10,9 @@ entity banco_reg16bits is
         wr_en : in std_logic;
         clk : in std_logic;
         reset : in std_logic;
-        data_in : in signed(15 downto 0); -- valor a ser escrito
-        data_out_reg_1 : out signed(15 downto 0); -- barramentos com os dados dos registradores lidos
-        data_out_reg_2 : out signed(15 downto 0) -- barramentos com os dados dos registradores lidos
+        data_in : in unsigned(15 downto 0); -- valor a ser escrito
+        data_out_reg_1 : out unsigned(15 downto 0); -- barramentos com os dados dos registradores lidos
+        data_out_reg_2 : out unsigned(15 downto 0) -- barramentos com os dados dos registradores lidos
     );
 end entity;
 
@@ -22,13 +22,13 @@ architecture a_banco_reg16bits of banco_reg16bits is
             clk : in std_logic;
             reset : in std_logic;
             wr_en : in std_logic;
-            data_in : in signed(15 downto 0);
-            data_out : out signed(15 downto 0)
+            data_in : in unsigned(15 downto 0);
+            data_out : out unsigned(15 downto 0)
         );
     end component;
 
     signal wr_en1, wr_en2, wr_en3, wr_en4, wr_en5, wr_en6, wr_en7 : std_logic :='0';
-    signal data_out0, data_out1, data_out2, data_out3, data_out4, data_out5, data_out6, data_out7 : signed(15 downto 0);
+    signal data_out0, data_out1, data_out2, data_out3, data_out4, data_out5, data_out6, data_out7 : unsigned(15 downto 0);
     constant wr_en0 : std_logic:='0';
 
 begin
