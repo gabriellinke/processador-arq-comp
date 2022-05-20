@@ -135,8 +135,9 @@ begin
         ULA_out_zero => ULA_out_zero
     );
     
-    ULA_opselect <= "00" when instr_reg_out(5 downto 0) = "100000" else
-                    "01" when instr_reg_out(5 downto 0) = "100010" else
+    ULA_opselect <= "00" when instr_reg_out(16 downto 12) = "00000" and  instr_reg_out(5 downto 0) = "100000" else -- ADD
+                    "01" when instr_reg_out(16 downto 12) = "00000" and  instr_reg_out(5 downto 0) = "100010" else -- SUB
+                    "01" when instr_reg_out(16 downto 12) = "00010" else -- SUBI
                     "11";
     
     estado_out <= estado;
