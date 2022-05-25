@@ -8,23 +8,39 @@ end entity;
 architecture a_un_controle_tb of un_controle_tb is
     component un_controle is
         port(
-        clk : in std_logic;
-        reset : in std_logic;
-        instr_in : in unsigned(16 downto 0);
+            clk : in std_logic;
+            reset : in std_logic;
+            instr_in : in unsigned(16 downto 0);
+            estado_out : out unsigned(1 downto 0);
+            ULA_opselect : out unsigned(1 downto 0);
+            sel_reg_1_in, sel_reg_2_in, sel_reg_write_in : out unsigned(2 downto 0);
 
-        rom_read : out std_logic;
-        pc_write : out std_logic;
-        jump_en : out std_logic
-
+            rom_read, pc_write, jump_en, exec, ULA_src : out std_logic
         );
     end component;
 
     constant period_time : time := 100 ns;
-    signal finished, clk, reset, rom_read, pc_write, jump_en : std_logic := '0';
+    signal finished, clk, reset, rom_read, pc_write, jump_en, exec, ULA_src : std_logic := '0';
     signal instr_in : unsigned(16 downto 0) := "00000000000000000";
+    signal estado_out, ULA_opselect : unsigned(1 downto 0) := "00";
+    signal sel_reg_1_in_s, sel_reg_2_in_s, sel_reg_write_in_s : unsigned(2 downto 0) := "000";
 
 begin
-    uut: un_controle port map(clk => clk, reset => reset, instr_in => instr_in, rom_read => rom_read, pc_write => pc_write, jump_en => jump_en);
+    uut: un_controle port map(
+        clk => clk, 
+        reset => reset, 
+        instr_in => instr_in, 
+        rom_read => rom_read, 
+        pc_write => pc_write, 
+        jump_en => jump_en,
+        exec => exec,
+        ULA_src => ULA_src,
+        estado_out => estado_out,
+        ULA_opselect => ULA_opselect,
+        sel_reg_1_in => sel_reg_1_in_s, 
+        sel_reg_2_in => sel_reg_2_in_s, 
+        sel_reg_write_in => sel_reg_write_in_s
+    );
 
     reset_global: process
     begin

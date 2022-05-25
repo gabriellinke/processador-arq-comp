@@ -41,4 +41,4 @@ ghdl -a processador_tb.vhd
 
 ghdl -r processador_tb --wave=result.ghw
 
-gtkwave result.ghw
+gtkwave saida.gtkw

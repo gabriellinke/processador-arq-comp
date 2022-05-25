@@ -29,6 +29,8 @@ architecture a_processador of processador is
             reset : in std_logic;
             instr_in : in unsigned(16 downto 0);
             estado_out : out unsigned(1 downto 0);
+            ULA_opselect : out unsigned(1 downto 0);
+            sel_reg_1_in, sel_reg_2_in, sel_reg_write_in : out unsigned(2 downto 0);
             rom_read, pc_write, jump_en, exec, ULA_src : out std_logic
         );
     end component;
@@ -79,9 +81,11 @@ architecture a_processador of processador is
     signal pc_out_s : unsigned(11 downto 0) := "000000000000";
     signal rom_out : unsigned(16 downto 0) := "00000000000000000";
     signal instr_reg_out : unsigned(16 downto 0) := "00000000000000000";
-    signal ULA_opselect, estado: unsigned(1 downto 0) := "00";
+    signal ULA_opselect_s, estado: unsigned(1 downto 0) := "00";
     signal ULA_out_data, extended_signal : unsigned(15 downto 0) := "0000000000000000";
     signal ULA_src, ULA_out_greater_equal_or_signal, ULA_out_zero: std_logic := '0';
+    signal sel_reg_1_in_s, sel_reg_2_in_s, sel_reg_write_in_s : unsigned(2 downto 0) := "000";
+
 begin
     MEM_ROM: rom port map(
         clk => clk,
@@ -101,13 +105,17 @@ begin
     UC: un_controle port map(
         clk => clk,
         reset => reset,
-        instr_in => rom_out,
+        instr_in => instr_reg_out,
         estado_out => estado,
         rom_read => rom_read,
         pc_write => pc_write,
         jump_en => jump_en,
         exec => exec,
-        ULA_src => ULA_src
+        ULA_src => ULA_src,
+        ULA_opselect => ULA_opselect_s,
+        sel_reg_1_in => sel_reg_1_in_s, 
+        sel_reg_2_in => sel_reg_2_in_s, 
+        sel_reg_write_in => sel_reg_write_in_s
     );
 
     INSTR_REG: reg17bits port map(
@@ -119,26 +127,21 @@ begin
     );
 
     BANCO_ULA: conexao_banco_ULA port map(
-        sel_reg_1_in => instr_reg_out(11 downto 9), 
-        sel_reg_2_in => instr_reg_out(8 downto 6), 
-        sel_reg_write_in => instr_reg_out(11 downto 9), 
+        sel_reg_1_in => sel_reg_1_in_s,
+        sel_reg_2_in => sel_reg_2_in_s, 
+        sel_reg_write_in => sel_reg_write_in_s, 
         in_data => extended_signal,
         clk_in => clk,
         wr_en_in => exec,
         reset_in => reset,
         ULA_src_in => ULA_src,
-        opselect_in => ULA_opselect, 
+        opselect_in => ULA_opselect_s, 
         reg_1_out => reg1_out_s,
         reg_2_out => reg2_out_s,
         ULA_out_data => ULA_out_data,
         ULA_out_greater_equal_or_signal => ULA_out_greater_equal_or_signal,
         ULA_out_zero => ULA_out_zero
     );
-    
-    ULA_opselect <= "00" when instr_reg_out(16 downto 12) = "00000" and  instr_reg_out(5 downto 0) = "100000" else -- ADD
-                    "01" when instr_reg_out(16 downto 12) = "00000" and  instr_reg_out(5 downto 0) = "100010" else -- SUB
-                    "01" when instr_reg_out(16 downto 12) = "00010" else -- SUBI
-                    "11";
     
     estado_out <= estado;
     pc_out <= pc_out_s;
