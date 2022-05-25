@@ -85,70 +85,70 @@ begin
         opselect_in <= "00";
         wait for period_time;
 
-        -- Grava no registrador 1 a soma do valor armazenado no registrador 0 com o valor de in_data
+        -- Grava no registrador 1 a soma do valor armazenado no registrador 1 com o valor de in_data
         wr_en_in <= '1';
         sel_reg_1_in <= "000";
-        sel_reg_2_in <= "000";
+        sel_reg_2_in <= "001";
         sel_reg_write_in <= "001";
         in_data <= "0000000000000001";
         ULA_src_in <= '1';
         opselect_in <= "00";
         wait for period_time;
 
-        -- Grava no registrador 2 a soma do valor armazenado no registrador 0 com o valor de in_data
+        -- Grava no registrador 2 a soma do valor armazenado no registrador 2 com o valor de in_data
         wr_en_in <= '1';
-        sel_reg_1_in <= "000";
-        sel_reg_2_in <= "000";
+        sel_reg_1_in <= "001";
+        sel_reg_2_in <= "010";
         sel_reg_write_in <= "010";
         in_data <= "0000000000000010";
         ULA_src_in <= '1';
         opselect_in <= "00";
         wait for period_time;
 
-        -- Grava no registrador 3 a soma do valor armazenado no registrador 0 com o valor de in_data
+        -- Grava no registrador 3 a soma do valor armazenado no registrador 3 com o valor de in_data
         wr_en_in <= '1';
-        sel_reg_1_in <= "000";
-        sel_reg_2_in <= "000";
+        sel_reg_1_in <= "010";
+        sel_reg_2_in <= "011";
         sel_reg_write_in <= "011";
         in_data <= "0000000000000011";
         ULA_src_in <= '1';
         opselect_in <= "00";
         wait for period_time;
         
-        -- Grava no registrador 4 a soma do valor armazenado no registrador 0 com o valor de in_data
+        -- Grava no registrador 4 a soma do valor armazenado no registrador 4 com o valor de in_data
         wr_en_in <= '1';
-        sel_reg_1_in <= "000";
-        sel_reg_2_in <= "000";
+        sel_reg_1_in <= "011";
+        sel_reg_2_in <= "100";
         sel_reg_write_in <= "100";
         in_data <= "0000000000000100";
         ULA_src_in <= '1';
         opselect_in <= "00";
         wait for period_time;
 
-        -- Grava no registrador 5 a soma do valor armazenado no registrador 0 com o valor de in_data
+        -- Grava no registrador 5 a soma do valor armazenado no registrador 5 com o valor de in_data
         wr_en_in <= '1';
-        sel_reg_1_in <= "000";
-        sel_reg_2_in <= "000";
+        sel_reg_1_in <= "100";
+        sel_reg_2_in <= "101";
         sel_reg_write_in <= "101";
         in_data <= "0000000000000101";
         ULA_src_in <= '1';
         opselect_in <= "00";
         wait for period_time;
 
-        -- Grava no registrador 6 a soma do valor armazenado no registrador 0 com o valor de in_data
+        -- Grava no registrador 6 a soma do valor armazenado no registrador 6 com o valor de in_data
         wr_en_in <= '1';
-        sel_reg_1_in <= "000";
-        sel_reg_2_in <= "000";
+        sel_reg_1_in <= "101";
+        sel_reg_2_in <= "110";
         sel_reg_write_in <= "110";
         in_data <= "0000000000000110";
         ULA_src_in <= '1';
         opselect_in <= "00";
         wait for period_time;
 
-        -- Grava no registrador 7 a soma do valor armazenado no registrador 0 com o valor de in_data
+        -- Grava no registrador 7 a soma do valor armazenado no registrador 7 com o valor de in_data
         wr_en_in <= '1';
-        sel_reg_1_in <= "000";
-        sel_reg_2_in <= "000";
+        sel_reg_1_in <= "110";
+        sel_reg_2_in <= "111";
         sel_reg_write_in <= "111";
         in_data <= "0000000000000111";
         ULA_src_in <= '1';
@@ -160,7 +160,7 @@ begin
         sel_reg_1_in <= "111";
         sel_reg_2_in <= "010";
         sel_reg_write_in <= "001";
-        in_data <= "0000000000000000";
+        in_data <= "0011111111110001";
         ULA_src_in <= '0';
         opselect_in <= "01";
         wait for period_time;
@@ -170,7 +170,7 @@ begin
         sel_reg_1_in <= "110";
         sel_reg_2_in <= "011";
         sel_reg_write_in <= "001";
-        in_data <= "0000000000000000";
+        in_data <= "1000000000000000";
         ULA_src_in <= '0';
         opselect_in <= "01";
         wait for period_time;
