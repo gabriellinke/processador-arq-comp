@@ -151,5 +151,7 @@ begin
     ULA_result_out <= ULA_out_data;
     ULA_carry_out <= ULA_out_carry;
     ULA_zero_out <= ULA_out_zero;
-    extended_signal <= instr_reg_out(8) & instr_reg_out(8) & instr_reg_out(8) & instr_reg_out(8) & instr_reg_out(8) & instr_reg_out(8) & instr_reg_out(8) & instr_reg_out(8 downto 0);
-end architecture;
+    -- extended_signal <= instr_reg_out(8) & instr_reg_out(8) & instr_reg_out(8) & instr_reg_out(8) & instr_reg_out(8) & instr_reg_out(8) & instr_reg_out(8) & instr_reg_out(8 downto 0);
+    extended_signal <= "0000000" & instr_reg_out(8 downto 0) when instr_reg_out(8) = '0' else
+                       "1111111" & instr_reg_out(8 downto 0);
+    end architecture;
