@@ -121,7 +121,7 @@ begin
     INSTR_REG: reg17bits port map(
         clk => clk,
         reset => reset,
-        wr_en => rom_read, -- Não tenho certeza, mas acredito que seja quando o estado é 00, que é o momento do rom_read = 1
+        wr_en => rom_read,
         data_in => rom_out,
         data_out => instr_reg_out
     );

@@ -52,8 +52,8 @@ begin
                     "01" when opcode = "00010" else -- SUBI
                     "11";
 
-    sel_reg_1_in <= "000" when opcode = "01000" else -- Dessa forma funciona o LDI, no entanto, reg1_out fica como 000
-                    "000" when opcode = "00000" and func = "100001" else -- Dessa forma funciona o MOV, no entanto, reg1_out fica como 000
+    sel_reg_1_in <= "000" when opcode = "01000" else
+                    "000" when opcode = "00000" and func = "100001" else
                     instr_in(11 downto 9); 
 
     sel_reg_2_in <= instr_in(8 downto 6); 

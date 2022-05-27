@@ -14,14 +14,14 @@ architecture a_rom of rom is
     type mem is array (0 to 4095) of unsigned(16 downto 0); -- memória ROM de 1k e com dados de 17 bits (conforme requisitos) - acredito está errado
     constant content_rom : mem := (
         -- caso endereco => conteudo
-        0 => B"01000_011_000000101",    -- LDI R3 000000101
-        1 => B"01000_100_000001000",    -- LDI R4 000001000
-        2 => B"00000_011_100_100000",   -- ADD R3 R4
-        3 => B"00000_101_011_100001",   -- MOV R5 R3
-        4 => B"00010_101_000000001",    -- SUBI R1 000000001
-        5 => B"11111_000000010100",     -- JMP para 20
-        20 => B"00000_011_101_100001",  -- MOV R3 R5
-        21 => B"11111_000000000010",    -- JMP para 2
+        0 => B"01000_011_000000101",    -- LDI R3,000000101B
+        1 => B"01000_100_000001000",    -- LDI R4,000001000B
+        2 => B"00000_011_100_100000",   -- ADD R3,R4
+        3 => B"00000_101_011_100001",   -- MOV R5,R3
+        4 => B"00010_101_000000001",    -- SUBI R1,000000001B
+        5 => B"11111_000000010100",     -- JMP 20
+        20 => B"00000_011_101_100001",  -- MOV R3,R5
+        21 => B"11111_000000000010",    -- JMP 2
 
         -- PROGRAMA PARA TESTAR AS INSTRUCOES
         -- 0 => B"01000_001_000000100", -- LDI 001 000000100
