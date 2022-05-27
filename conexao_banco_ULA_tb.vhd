@@ -19,13 +19,13 @@ architecture a_conexao_banco_ULA_tb of conexao_banco_ULA_tb is
             opselect_in : in unsigned(1 downto 0);
 
             ULA_out_data : out unsigned(15 downto 0);
-            ULA_out_greater_equal_or_signal : out std_logic;
+            ULA_out_carry : out std_logic;
             ULA_out_zero : out std_logic
         );
     end component;
     constant period_time : time := 100 ns;
     signal finished : std_logic := '0';
-    signal clk_in, wr_en_in, reset_in, ULA_src_in, ULA_out_greater_equal_or_signal, ULA_out_zero: std_logic := '0';
+    signal clk_in, wr_en_in, reset_in, ULA_src_in, ULA_out_carry, ULA_out_zero: std_logic := '0';
     signal opselect_in : unsigned(1 downto 0) := "00";
     signal sel_reg_1_in, sel_reg_2_in, sel_reg_write_in : unsigned(2 downto 0) := "000";
     signal in_data, ULA_out_data : unsigned(15 downto 0) := "0000000000000000";
@@ -41,7 +41,7 @@ begin
         ULA_src_in=>ULA_src_in,
         opselect_in=>opselect_in,
         ULA_out_data=>ULA_out_data,
-        ULA_out_greater_equal_or_signal=>ULA_out_greater_equal_or_signal,
+        ULA_out_carry=>ULA_out_carry,
         ULA_out_zero=>ULA_out_zero
     );
 

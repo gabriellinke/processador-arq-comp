@@ -16,7 +16,7 @@ entity conexao_banco_ULA is
 
         reg_1_out, reg_2_out : out unsigned(15 downto 0);
         ULA_out_data : out unsigned(15 downto 0);
-        ULA_out_greater_equal_or_signal : out std_logic;
+        ULA_out_carry : out std_logic;
         ULA_out_zero : out std_logic
     );
 
@@ -38,7 +38,7 @@ architecture a_conexao_banco_ULA of conexao_banco_ULA is
             opselect: in unsigned(1 downto 0);
 
             output1 : out unsigned(15 downto 0);
-            output_greater_equal_or_signal : out std_logic;
+            output_carry : out std_logic;
             output_zero : out std_logic
         );
     end component;
@@ -56,7 +56,7 @@ architecture a_conexao_banco_ULA of conexao_banco_ULA is
         );
     end component;
     signal out_data, banco_out_1, banco_out_2, mux_out : unsigned(15 downto 0);
-    signal out_greater_equal_or_signal, out_zero : std_logic;
+    signal out_carry, out_zero : std_logic;
 begin
     banco_reg16bits_component : banco_reg16bits port map(
         sel_reg_1=>sel_reg_1_in,
@@ -80,13 +80,13 @@ begin
         input2=>mux_out,
         opselect=>opselect_in,
         output1=>out_data,
-        output_greater_equal_or_signal=>out_greater_equal_or_signal,
+        output_carry=>out_carry,
         output_zero=>out_zero
     );
     
     reg_1_out <= banco_out_1;
     reg_2_out <= banco_out_2;
     ULA_out_data <= out_data;
-    ULA_out_greater_equal_or_signal <= out_greater_equal_or_signal;
+    ULA_out_carry <= out_carry;
     ULA_out_zero <= out_zero;
 end architecture;

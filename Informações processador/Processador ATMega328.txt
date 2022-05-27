@@ -70,6 +70,8 @@ Instruções (Mnemônicos / Operandos / Descrição / Operação)
 	Desvio condicional: 
 		BREQ / k / Branch if Equal / if (Z = 1) then PC ← PC + k + 1
 		BRNE / k / Branch if Not Equal / if (Z = 0) then PC ← PC + k + 1
+		BRLO / k / Branch if Lower / if (C = 1) then PC ← PC + k + 1
+		BRSH / k / Branch if Same or Higher / if (C = 0) then PC ← PC + k + 1
 
 	Instruções de acesso à memória (modo de endereçamento indireto): 
 		

@@ -10,7 +10,7 @@ entity processador is
         instr_out: out unsigned(16 downto 0);
         reg1_out, reg2_out: out unsigned(15 downto 0);
         ULA_result_out: out unsigned(15 downto 0);
-        ULA_geq_sig_out, ULA_zero_out: out std_logic
+        ULA_carry_out, ULA_zero_out: out std_logic
     );
 end entity;
 
@@ -49,7 +49,7 @@ architecture a_processador of processador is
     
             reg_1_out, reg_2_out : out unsigned(15 downto 0);
             ULA_out_data : out unsigned(15 downto 0);
-            ULA_out_greater_equal_or_signal : out std_logic;
+            ULA_out_carry : out std_logic;
             ULA_out_zero : out std_logic
         );
     end component;
@@ -83,7 +83,7 @@ architecture a_processador of processador is
     signal instr_reg_out : unsigned(16 downto 0) := "00000000000000000";
     signal ULA_opselect_s, estado: unsigned(1 downto 0) := "00";
     signal ULA_out_data, extended_signal : unsigned(15 downto 0) := "0000000000000000";
-    signal ULA_src, ULA_out_greater_equal_or_signal, ULA_out_zero: std_logic := '0';
+    signal ULA_src, ULA_out_carry, ULA_out_zero: std_logic := '0';
     signal sel_reg_1_in_s, sel_reg_2_in_s, sel_reg_write_in_s : unsigned(2 downto 0) := "000";
 
 begin
@@ -139,7 +139,7 @@ begin
         reg_1_out => reg1_out_s,
         reg_2_out => reg2_out_s,
         ULA_out_data => ULA_out_data,
-        ULA_out_greater_equal_or_signal => ULA_out_greater_equal_or_signal,
+        ULA_out_carry => ULA_out_carry,
         ULA_out_zero => ULA_out_zero
     );
     
@@ -149,7 +149,7 @@ begin
     reg1_out <= reg1_out_s;
     reg2_out <= reg2_out_s;
     ULA_result_out <= ULA_out_data;
-    ULA_geq_sig_out <= ULA_out_greater_equal_or_signal;
+    ULA_carry_out <= ULA_out_carry;
     ULA_zero_out <= ULA_out_zero;
     extended_signal <= instr_reg_out(8) & instr_reg_out(8) & instr_reg_out(8) & instr_reg_out(8) & instr_reg_out(8) & instr_reg_out(8) & instr_reg_out(8) & instr_reg_out(8 downto 0);
 end architecture;

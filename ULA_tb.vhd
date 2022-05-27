@@ -10,19 +10,19 @@ architecture a_ULA_tb of ULA_tb is
         port(   input1, input2 : in unsigned(15 downto 0);
                 opselect : in unsigned(1 downto 0);
                 output1 : out unsigned(15 downto 0);
-                output_greater_equal_or_signal : out std_logic;
+                output_carry : out std_logic;
                 output_zero : out std_logic
             );
     end component;
     
     signal input1, input2, output1 : unsigned(15 downto 0) := "0000000000000000";
     signal opselect : unsigned(1 downto 0) := "00";
-    signal output_greater_equal_or_signal, output_zero : std_logic := '0';
+    signal output_carry, output_zero : std_logic := '0';
     ----------------------
     ------ opselect ------
     -- 00 sum
     -- 01 subtract
-    -- 10 greater or equal
+    -- 10 or
     -- 11 and
     ----------------------
 begin
@@ -31,7 +31,7 @@ begin
         input2 => input2,
         opselect => opselect,
         output1 => output1,
-        output_greater_equal_or_signal => output_greater_equal_or_signal,
+        output_carry => output_carry,
         output_zero => output_zero
     );
     process
@@ -196,32 +196,26 @@ begin
         opselect <= "01";
         wait for 50 ns;
     -------------------------------------------------
-    ------------ Greater or equal tests -------------
-        -- input1 > input2
-        input1 <= "0000011000100010";
-        input2 <= "0000000011001100";
+    ------------ Or tests -------------
+        -- input2 or 0
+        input1 <= "0000000000000000";
+        input2 <= "0000110011001100";
         opselect <= "10";
         wait for 50 ns;
-        -- input1 < input2
-        input1 <= "0000000011001100";
-        input2 <= "0000011000100010";
+        -- input2 or 1
+        input1 <= "1111111111111111";
+        input2 <= "0000110011001100";
         opselect <= "10";
         wait for 50 ns;
-        -- input1 = input2
-        input1 <= "0000011000100010";
-        input2 <= "0000011000100010";
+        -- Test 0 or 0, 1 or 1, 0 or 1, 1 or 0
+        input1 <= "0000111100001011";
+        input2 <= "0000111101100100";
         opselect <= "10";
         wait for 50 ns;
-        -- input1 > input2 (both negative)
-        input1 <= "1111100111001111";
-        input2 <= "1110011000100010";
+        -- Test 0 or 0, 1 or 1, 0 or 1, 1 or 0
+        input1 <= "1000011110110111";
+        input2 <= "1000011111010000";
         opselect <= "10";
-        wait for 50 ns;
-        -- input1 > input2 (first negative, second positive)
-        input1 <= "1111100111001111";
-        input2 <= "0110011000100010";
-        opselect <= "10";
-        wait for 50 ns;
     -------------------------------------------------
     ------------ And tests --------------------------
         -- input2 and 0
