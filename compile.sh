@@ -1,5 +1,8 @@
 #!/bin/bash
 
+ghdl -a flip_flop.vhd
+ghdl -a flip_flop_tb.vhd
+
 ghdl -a reg16bits.vhd
 ghdl -a reg16bits_tb.vhd
 
@@ -40,6 +43,7 @@ ghdl -a processador_tb.vhd
 # ghdl -a top_level_controle_tb.vhd
 
 ghdl -r processador_tb --wave=result.ghw
+# ghdl -r flip_flop_tb --wave=result.ghw
 
 gtkwave saida.gtkw
 # gtkwave result.ghw

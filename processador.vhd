@@ -10,7 +10,7 @@ entity processador is
         instr_out: out unsigned(16 downto 0);
         reg1_out, reg2_out: out unsigned(15 downto 0);
         ULA_result_out: out unsigned(15 downto 0);
-        ULA_carry_out, ULA_zero_out: out std_logic
+        ULA_out_carry, ULA_out_zero: out std_logic
     );
 end entity;
 
@@ -31,7 +31,8 @@ architecture a_processador of processador is
             estado_out : out unsigned(1 downto 0);
             ULA_opselect : out unsigned(1 downto 0);
             sel_reg_1_in, sel_reg_2_in, sel_reg_write_in : out unsigned(2 downto 0);
-            rom_read, pc_write, jump_en, exec, ULA_src : out std_logic
+            rom_read, pc_write, jump_en, exec, ULA_src : out std_logic;
+            ULA_out_carry, ULA_out_zero: in std_logic
         );
     end component;
 
@@ -83,7 +84,7 @@ architecture a_processador of processador is
     signal instr_reg_out : unsigned(16 downto 0) := "00000000000000000";
     signal ULA_opselect_s, estado: unsigned(1 downto 0) := "00";
     signal ULA_out_data, extended_signal : unsigned(15 downto 0) := "0000000000000000";
-    signal ULA_src, ULA_out_carry, ULA_out_zero: std_logic := '0';
+    signal ULA_src, ULA_out_carry_s, ULA_out_zero_s: std_logic := '0';
     signal sel_reg_1_in_s, sel_reg_2_in_s, sel_reg_write_in_s : unsigned(2 downto 0) := "000";
 
 begin
@@ -115,7 +116,9 @@ begin
         ULA_opselect => ULA_opselect_s,
         sel_reg_1_in => sel_reg_1_in_s, 
         sel_reg_2_in => sel_reg_2_in_s, 
-        sel_reg_write_in => sel_reg_write_in_s
+        sel_reg_write_in => sel_reg_write_in_s,
+        ULA_out_carry => ULA_out_carry_s,
+        ULA_out_zero => ULA_out_zero_s
     );
 
     INSTR_REG: reg17bits port map(
@@ -139,8 +142,8 @@ begin
         reg_1_out => reg1_out_s,
         reg_2_out => reg2_out_s,
         ULA_out_data => ULA_out_data,
-        ULA_out_carry => ULA_out_carry,
-        ULA_out_zero => ULA_out_zero
+        ULA_out_carry => ULA_out_carry_s,
+        ULA_out_zero => ULA_out_zero_s
     );
     
     estado_out <= estado;
@@ -149,8 +152,6 @@ begin
     reg1_out <= reg1_out_s;
     reg2_out <= reg2_out_s;
     ULA_result_out <= ULA_out_data;
-    ULA_carry_out <= ULA_out_carry;
-    ULA_zero_out <= ULA_out_zero;
     -- extended_signal <= instr_reg_out(8) & instr_reg_out(8) & instr_reg_out(8) & instr_reg_out(8) & instr_reg_out(8) & instr_reg_out(8) & instr_reg_out(8) & instr_reg_out(8 downto 0);
     extended_signal <= "0000000" & instr_reg_out(8 downto 0) when instr_reg_out(8) = '0' else
                        "1111111" & instr_reg_out(8 downto 0);

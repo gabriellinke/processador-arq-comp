@@ -10,7 +10,8 @@ entity un_controle is
         estado_out : out unsigned(1 downto 0);
         ULA_opselect : out unsigned(1 downto 0);
         sel_reg_1_in, sel_reg_2_in, sel_reg_write_in : out unsigned(2 downto 0);
-        rom_read, pc_write, jump_en, exec, ULA_src : out std_logic
+        rom_read, pc_write, jump_en, exec, ULA_src : out std_logic;
+        ULA_out_carry, ULA_out_zero: in std_logic
     );
 end entity;
 
@@ -23,15 +24,43 @@ architecture a_un_controle of un_controle is
         );
     end component;
 
+    component flip_flop is
+        port(
+            clk : in std_logic;
+            reset : in std_logic;
+            wr_en : in std_logic;
+            data_in : in std_logic;
+            data_out : out std_logic
+        );
+    end component;
+
     signal estado_s: unsigned(1 downto 0) := "00";
     signal opcode: unsigned(4 downto 0) := "00000";
     signal func: unsigned(5 downto 0) := "000000";
+    signal ff_z_data_in, ff_z_data_out, ff_c_data_in, ff_c_data_out: std_logic := '0';
+    signal write_enable_ff_z, write_enable_ff_c: std_logic := '1';
     
 begin
     MAQ: maquina_estados port map(
         clk=>clk, 
         reset=>reset, 
         estado=>estado_s
+    );
+
+    FF_Z: flip_flop port map(
+        clk => clk,
+        reset => reset,
+        wr_en => write_enable_ff_z,
+        data_in => ff_z_data_in,
+        data_out => ff_z_data_out
+    );
+
+    FF_C: flip_flop port map(
+        clk => clk,
+        reset => reset,
+        wr_en => write_enable_ff_c,
+        data_in => ff_c_data_in,
+        data_out => ff_c_data_out
     );
 
     opcode <= instr_in(16 downto 12);
@@ -63,4 +92,11 @@ begin
 
     estado_out <= estado_s;
     
+    ff_z_data_in <= ULA_out_zero when write_enable_ff_z = '1';
+    ff_c_data_in <= ULA_out_carry when write_enable_ff_c = '1';
+
+    -- Configurar os write enables dos FFs
+
+    -- Fazer um flip-flop (reg de 1 bit) para guardar o valor de Carry e de Zero
+    -- Operações de ULA dão um write_enable nos registradores de Carry e de Zero
 end architecture a_un_controle;
