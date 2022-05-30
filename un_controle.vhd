@@ -37,7 +37,7 @@ architecture a_un_controle of un_controle is
     signal estado_s: unsigned(1 downto 0) := "00";
     signal opcode: unsigned(4 downto 0) := "00000";
     signal func: unsigned(5 downto 0) := "000000";
-    signal ff_z_data_in, ff_z_data_out, ff_c_data_in, ff_c_data_out: std_logic := '0';
+    signal ff_z_data_in, ff_z_data_out, ff_c_data_in, ff_c_data_out, op_de_ula: std_logic := '0';
     signal write_enable_ff_z, write_enable_ff_c: std_logic := '1';
     
 begin
@@ -81,8 +81,8 @@ begin
                     "01" when opcode = "00010" else -- SUBI
                     "11";
 
-    sel_reg_1_in <= "000" when opcode = "01000" else
-                    "000" when opcode = "00000" and func = "100001" else
+    sel_reg_1_in <= "000" when opcode = "01000" else -- LDI
+                    "000" when opcode = "00000" and func = "100001" else -- MOV
                     instr_in(11 downto 9); 
 
     sel_reg_2_in <= instr_in(8 downto 6); 
@@ -92,11 +92,24 @@ begin
 
     estado_out <= estado_s;
     
+    -- Fazer um flip-flop (reg de 1 bit) para guardar o valor de Carry e de Zero
+    -- Configurar os write enables dos FFs
+    -- Operações de ULA dão um write_enable nos registradores de Carry e de Zero
+
+    -- Acho que tirando o JMP, todas as outras são operações de ULA.
+    op_de_ula <= '0' when opcode="11111" else '1';
+    write_enable_ff_z <= '1' when op_de_ula = '1' else '0';
+    write_enable_ff_c <= '1' when op_de_ula = '1' else '0';
+
     ff_z_data_in <= ULA_out_zero when write_enable_ff_z = '1';
     ff_c_data_in <= ULA_out_carry when write_enable_ff_c = '1';
 
-    -- Configurar os write enables dos FFs
 
-    -- Fazer um flip-flop (reg de 1 bit) para guardar o valor de Carry e de Zero
-    -- Operações de ULA dão um write_enable nos registradores de Carry e de Zero
+    -- Para um Branch utiliza-se:
+    -- CP Rd,Rr ou CPI Rd,c
+    -- BREQ k
+        -- Verifica a flag Z ou C pra ver se a condição foi satisfeita. Se foi satisfeita, calcula o endereço e faz um JMP (PC+1+K) -- Pensar em como fazer a conta com o PC
+
+    -- Falta implementar CP, CPI e RJMP
+
 end architecture a_un_controle;

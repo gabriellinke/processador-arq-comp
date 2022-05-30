@@ -12,8 +12,9 @@ opcode(5) endereço destino(12)
 Opcodes formato I
 
 	Instruction
-		LDI -> opcode 01000
+		LDI  -> opcode 01000
 		SUBI -> opcode 00010
+		CPI  -> opcode 00110
 		
 
 Valores do campo function para instruções formato R
@@ -23,11 +24,13 @@ Valores do campo function para instruções formato R
 		ADD -> function 100000
 		SUB -> function 100010
 		MOV -> function 100001
+		CP  -> function 100110
 		
 Opcodes formato J
 	
 	Instruction
-		JMP -> opcode 11111
+		JMP  -> opcode 11111
+		RJMP -> opcode 11110
 		
 
 Códigos das instruções
@@ -40,3 +43,4 @@ LDI Rd, K = 01000 DDD KKKKKKKKK
 SUBI Rd, K = 00010 DDD KKKKKKKKK
 
 JMP AAAAAAAAAAAA = 11111 AAAAAAAAAAAA
+RJMP AAAAAAAAAAAA = 11110 AAAAAAAAAAAA
