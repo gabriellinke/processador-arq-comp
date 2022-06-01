@@ -29,7 +29,7 @@ Opcodes formato J
 	
 	Instruction
 		JMP  -> opcode 11111
-		RJMP -> opcode 10000 -- não implementado
+		RJMP -> opcode 10000
 		BREQ -> opcode 10100 -- não implementado
 		BRNE -> opcode 10101 -- não implementado
 		BRSH -> opcode 10110 -- não implementado
