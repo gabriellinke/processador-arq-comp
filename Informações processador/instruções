@@ -29,7 +29,7 @@ Opcodes formato J
 	
 	Instruction
 		JMP  -> opcode 11111
-		RJMP -> opcode 11110 -- não implementado
+		RJMP -> opcode 10000 -- não implementado
 		BREQ -> opcode 10100 -- não implementado
 		BRNE -> opcode 10101 -- não implementado
 		BRSH -> opcode 10110 -- não implementado
@@ -48,7 +48,7 @@ SUBI Rd, K = 00010 DDD KKKKKKKKK
 CPI  Rd, K = 00110 DDD KKKKKKKKK
 
 JMP  AAAAAAAAAAAA = 11111 AAAAAAAAAAAA
-RJMP AAAAAAAAAAAA = 11110 AAAAAAAAAAAA
+RJMP AAAAAAAAAAAA = 10000 AAAAAAAAAAAA
 BREQ AAAAAAAAAAAA = 10100 AAAAAAAAAAAA
 BRNE AAAAAAAAAAAA = 10101 AAAAAAAAAAAA
 BRSH AAAAAAAAAAAA = 10110 AAAAAAAAAAAA
@@ -58,5 +58,5 @@ BRLO AAAAAAAAAAAA = 10111 AAAAAAAAAAAA
 -- Colinha Opcodes: --
 Tipo R é 00000
 Tipo I é 0XXXX
-Jump é 11XXX
-Branch é 10XXX
+Jump Direto é 11XXX
+Jump Relativo e Branch é 10XXX

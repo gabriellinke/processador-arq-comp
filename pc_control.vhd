@@ -7,6 +7,7 @@ entity pc_control is
         clk :in std_logic;
         wr_en : in std_logic;
         reset : in std_logic;
+        select_jump_type : in std_logic; -- Quando 0 - Direct Jump. Quando 1 - Relative Jump
         jump_en : in std_logic;
         data_in : in unsigned(11 downto 0);
         data_out : out unsigned(11 downto 0)
@@ -24,7 +25,7 @@ architecture a_pc_control of pc_control is
         );
     end component;
 
-    signal pc_in, pc_out: unsigned(11 downto 0) := "000000000000";
+    signal pc_in, pc_out, direct_jump_address, relative_jump_address: unsigned(11 downto 0) := "000000000000";
 begin
 
     PC: reg12bits port map(  
@@ -36,9 +37,12 @@ begin
     );
 
     pc_in <= "000000000000" when reset='1' else
-             data_in when jump_en = '1' else 
+             direct_jump_address when jump_en = '1' and select_jump_type = '0' else 
+             relative_jump_address when jump_en = '1' and select_jump_type = '1' else
              pc_out + 1;
 
     data_out <= pc_out;
+    direct_jump_address <= data_in;
+    relative_jump_address <= pc_out + 1 + data_in;
 
 end architecture a_pc_control;
