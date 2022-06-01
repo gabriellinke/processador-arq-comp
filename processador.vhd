@@ -31,7 +31,7 @@ architecture a_processador of processador is
             estado_out : out unsigned(1 downto 0);
             ULA_opselect : out unsigned(1 downto 0);
             sel_reg_1_in, sel_reg_2_in, sel_reg_write_in : out unsigned(2 downto 0);
-            rom_read, pc_write, jump_en, exec, ULA_src : out std_logic;
+            rom_read, pc_write, jump_en, select_jump_type, exec, ULA_src : out std_logic;
             ULA_out_carry, ULA_out_zero: in std_logic
         );
     end component;
@@ -60,6 +60,7 @@ architecture a_processador of processador is
             clk :in std_logic;
             wr_en : in std_logic;
             reset : in std_logic;
+            select_jump_type : in std_logic;
             jump_en : in std_logic;
             data_in : in unsigned(11 downto 0);
             data_out : out unsigned(11 downto 0)
@@ -78,7 +79,7 @@ architecture a_processador of processador is
 
     signal reg1_out_s, reg2_out_s : unsigned(15 downto 0) := "0000000000000000";
     signal rom_read : std_logic := '1';
-    signal pc_write, jump_en, exec : std_logic := '0';
+    signal pc_write, jump_en, select_jump_type, exec : std_logic := '0';
     signal pc_out_s : unsigned(11 downto 0) := "000000000000";
     signal rom_out : unsigned(16 downto 0) := "00000000000000000";
     signal instr_reg_out : unsigned(16 downto 0) := "00000000000000000";
@@ -99,6 +100,7 @@ begin
         wr_en => pc_write,
         reset => reset,
         jump_en => jump_en,
+        select_jump_type => select_jump_type,
         data_in => rom_out(11 downto 0),
         data_out => pc_out_s
     );
@@ -110,6 +112,7 @@ begin
         estado_out => estado,
         rom_read => rom_read,
         pc_write => pc_write,
+        select_jump_type => select_jump_type,
         jump_en => jump_en,
         exec => exec,
         ULA_src => ULA_src,

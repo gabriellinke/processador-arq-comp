@@ -10,7 +10,7 @@ entity un_controle is
         estado_out : out unsigned(1 downto 0);
         ULA_opselect : out unsigned(1 downto 0);
         sel_reg_1_in, sel_reg_2_in, sel_reg_write_in : out unsigned(2 downto 0);
-        rom_read, pc_write, jump_en, exec, ULA_src : out std_logic;
+        rom_read, pc_write, jump_en, select_jump_type, exec, ULA_src : out std_logic;
         ULA_out_carry, ULA_out_zero: in std_logic
     );
 end entity;
@@ -97,6 +97,7 @@ begin
     sel_reg_write_in <= instr_in(11 downto 9); 
 
     jump_en <= '1' when opcode= "11111" else '0';
+    select_jump_type <= '0' when opcode= "11111" else '1'; -- Quando 0 - Direct Jump. Quando 1 - Relative Jump
 
     estado_out <= estado_s;
     
