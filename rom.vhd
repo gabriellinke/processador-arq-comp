@@ -15,15 +15,15 @@ architecture a_rom of rom is
     constant content_rom : mem := (
         -- caso endereco => conteudo
 
-        -- LDI R3,000000000B -- P1
-        -- LDI R4,000000000B -- P2
-        -- ADD R4,R3         -- P3
-        -- LDI R7,000000001B -- P4
-        -- ADD R3,R7         -- P4
-        -- CPI R3,000011110B -- P5
-        -- BRLO -5           -- P5
-        -- MOV R5,R4         -- P6
-
+        -- PROGRAMA LAB 6
+        0 => B"01000_011_000000000",  -- LDI R3,000000000B -- P1
+        1 => B"01000_100_000000000",  -- LDI R4,000000000B -- P2
+        2 => B"00000_100_011_100000", -- ADD R4,R3         -- P3
+        3 => B"01000_111_000000001",  -- LDI R7,000000001B -- P4
+        4 => B"00000_011_111_100000", -- ADD R4,R3         -- P4
+        5 => B"00110_011_000011110",  -- CPI R3,000011110B -- P5
+        6 => B"10111_111111111011",   -- BRLO -5           -- P5
+        7 => B"00000_101_100_100001", -- MOV R5,R4         -- P6
 
         -- PROGRAMA PARA TESTAR CP E CPI
         -- 0 => B"01000_001_001100101",  -- LDI R1,001100101B
@@ -48,7 +48,7 @@ architecture a_rom of rom is
         -- 20 => B"00000_011_101_100001",  -- MOV R3,R5
         -- 21 => B"11111_000000000010",    -- JMP 2
 
-        -- PROGRAMA PARA TESTAR AS INSTRUCOES BÁSICAS
+        -- PROGRAMA PARA TESTAR AS INSTRUCOES BASICAS
         -- 0 => B"01000_001_000000100", -- LDI 001 000000100
         -- 1 => B"01000_001_010000000", -- LDI 001 010000000
         -- 2 => B"01000_010_000000001", -- LDI 010 000000001
