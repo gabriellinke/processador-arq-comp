@@ -96,9 +96,14 @@ begin
     sel_reg_2_in <= instr_in(8 downto 6); 
     sel_reg_write_in <= instr_in(11 downto 9); 
 
-    jump_en <=  '1' when opcode= "11111" else -- Direct Jump
-                '1' when opcode(4 downto 3) = "10" else -- Relative Jump
+    jump_en <=  '1' when opcode = "11111" else -- Direct Jump
+                '1' when opcode = "10000" else -- Relative Jump
+                '1' when opcode = "10100" and ff_z_data_out = '1' else -- BREQ
+                '1' when opcode = "10101" and ff_z_data_out = '0' else -- BRNE
+                '1' when opcode = "10110" and ff_c_data_out = '0' else -- BRSH
+                '1' when opcode = "10111" and ff_c_data_out = '1' else -- BRLO
                 '0';
+                
     select_jump_type <= '0' when opcode= "11111" else '1'; -- Quando 0 - Direct Jump. Quando 1 - Relative Jump
 
     estado_out <= estado_s;

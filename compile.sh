@@ -42,8 +42,8 @@ ghdl -a processador_tb.vhd
 # ghdl -a top_level_controle.vhd
 # ghdl -a top_level_controle_tb.vhd
 
-# ghdl -r processador_tb --wave=result.ghw
-ghdl -r un_controle_tb --wave=result.ghw
+ghdl -r processador_tb --wave=result.ghw
+# ghdl -r un_controle_tb --wave=result.ghw
 
-# gtkwave saida.gtkw
-gtkwave result.ghw
+gtkwave saida.gtkw
+# gtkwave result.ghw
