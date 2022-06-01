@@ -43,7 +43,7 @@ begin
     carry_soma <= soma_17(16); -- o carry eh o MSB da soma 17 bits
 
     -- Apenas funciona se não forem usados números negativos
-    carry_subtr <= '0' when input1 <= input2 else
+    carry_subtr <= '0' when input2 <= input1 else
                    '1';
 
     output_carry <= carry_subtr when opselect="01" else

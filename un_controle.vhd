@@ -70,13 +70,21 @@ begin
 
     pc_write <= '1' when estado_s = "01" else '0';
 
-    exec <= '1' when estado_s = "10" else '0';
+    exec <= '1' when estado_s = "10" 
+                and not (func = "100110" and opcode = "00000") -- CP - não quero que escreva quando fizer CP, quero apenas atualizar o FF_Z e FF_C 
+                and opcode /= "00110" -- CPI - não quero que escreva quando fizer CPI, quero apenas atualizar o FF_Z e FF_C 
+                else '0'; 
 
-    ULA_src <= '1' when opcode = "01000" or opcode = "00010" else '0';
+    ULA_src <= '1' when opcode = "01000" -- LDI
+                   or   opcode = "00010" --SUBI
+                   or   opcode = "00110" --CPI
+                   else '0';
 
     ULA_opselect <= "00" when opcode = "00000" and func = "100000" else -- ADD
                     "00" when opcode = "00000" and func = "100001" else -- MOV
                     "01" when opcode = "00000" and func = "100010" else -- SUB
+                    "01" when opcode = "00000" and func = "100110" else -- CP
+                    "01" when opcode = "00110" else -- CPI
                     "00" when opcode = "01000" else -- LDI
                     "01" when opcode = "00010" else -- SUBI
                     "11";
