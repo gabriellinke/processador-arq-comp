@@ -152,7 +152,6 @@ begin
     reg1_out <= reg1_out_s;
     reg2_out <= reg2_out_s;
     ULA_result_out <= ULA_out_data;
-    -- extended_signal <= instr_reg_out(8) & instr_reg_out(8) & instr_reg_out(8) & instr_reg_out(8) & instr_reg_out(8) & instr_reg_out(8) & instr_reg_out(8) & instr_reg_out(8 downto 0);
     extended_signal <= "0000000" & instr_reg_out(8 downto 0) when instr_reg_out(8) = '0' else
                        "1111111" & instr_reg_out(8 downto 0);
     end architecture;

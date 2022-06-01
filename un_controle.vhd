@@ -118,6 +118,6 @@ begin
     -- BREQ k
         -- Verifica a flag Z ou C pra ver se a condição foi satisfeita. Se foi satisfeita, calcula o endereço e faz um JMP (PC+1+K) -- Pensar em como fazer a conta com o PC
 
-    -- Falta implementar CP, CPI e RJMP
+    -- Falta implementar RJMP e os Branches
 
 end architecture a_un_controle;

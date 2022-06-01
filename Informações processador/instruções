@@ -9,14 +9,6 @@ Formato J
 opcode(5) endereço destino(12)
 
 
-Opcodes formato I
-
-	Instruction
-		LDI  -> opcode 01000
-		SUBI -> opcode 00010
-		CPI  -> opcode 00110
-		
-
 Valores do campo function para instruções formato R
 
 	Instruction
@@ -26,11 +18,22 @@ Valores do campo function para instruções formato R
 		MOV -> function 100001
 		CP  -> function 100110
 		
+Opcodes formato I
+
+	Instruction
+		LDI  -> opcode 01000
+		SUBI -> opcode 00010
+		CPI  -> opcode 00110
+		
 Opcodes formato J
 	
 	Instruction
 		JMP  -> opcode 11111
-		RJMP -> opcode 11110
+		RJMP -> opcode 11110 -- não implementado
+		BREQ -> opcode 10100 -- não implementado
+		BRNE -> opcode 10101 -- não implementado
+		BRSH -> opcode 10110 -- não implementado
+		BRLO -> opcode 10111 -- não implementado
 		
 
 Códigos das instruções
@@ -44,5 +47,16 @@ LDI  Rd, K = 01000 DDD KKKKKKKKK
 SUBI Rd, K = 00010 DDD KKKKKKKKK
 CPI  Rd, K = 00110 DDD KKKKKKKKK
 
-JMP AAAAAAAAAAAA = 11111 AAAAAAAAAAAA
+JMP  AAAAAAAAAAAA = 11111 AAAAAAAAAAAA
 RJMP AAAAAAAAAAAA = 11110 AAAAAAAAAAAA
+BREQ AAAAAAAAAAAA = 10100 AAAAAAAAAAAA
+BRNE AAAAAAAAAAAA = 10101 AAAAAAAAAAAA
+BRSH AAAAAAAAAAAA = 10110 AAAAAAAAAAAA
+BRLO AAAAAAAAAAAA = 10111 AAAAAAAAAAAA
+
+
+-- Colinha Opcodes: --
+Tipo R é 00000
+Tipo I é 0XXXX
+Jump é 11XXX
+Branch é 10XXX
