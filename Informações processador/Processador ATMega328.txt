@@ -77,8 +77,13 @@ Instruções (Mnemônicos / Operandos / Descrição / Operação)
 		BRSH / k / Branch if Same or Higher / if (C = 0) then PC ← PC + k + 1
 
 	Instruções de acesso à memória (modo de endereçamento indireto): 
-		
-		
+		LD / Rd, X / Load Indirect / Rd <- (X)
+		ST / X, Rr / Store Indirect / (X) -> Rr
+
+	X vai ser o registrador 7, ele vai ser um 'registrador ponteiro'. 
+	Quando utilizar a instrução de LD, carregarei o registrador Rd com o valor da RAM apontado pelo registrador X. 
+	Quando usar a instrução ST, salvarei o valor de Rr no endereço da RAM apontado por X.
+				
 The AVR core combines a rich instruction set with 32 general purpose working registers. All the 32 registers are
 directly connected to the Arithmetic Logic Unit (ALU), allowing two independent registers to be accessed in one
 single instruction executed in one clock cycle.
