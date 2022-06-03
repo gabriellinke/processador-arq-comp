@@ -117,15 +117,7 @@ begin
     write_enable_ff_z <= '1' when op_de_ula = '1' else '0';
     write_enable_ff_c <= '1' when op_de_ula = '1' else '0';
 
-    ff_z_data_in <= ULA_out_zero when write_enable_ff_z = '1';
-    ff_c_data_in <= ULA_out_carry when write_enable_ff_c = '1';
-
-
-    -- Para um Branch utiliza-se:
-    -- CP Rd,Rr ou CPI Rd,c
-    -- BREQ k
-        -- Verifica a flag Z ou C pra ver se a condição foi satisfeita. Se foi satisfeita, calcula o endereço e faz um JMP (PC+1+K) -- Pensar em como fazer a conta com o PC
-
-    -- Falta implementar RJMP e os Branches
+    ff_z_data_in <= ULA_out_zero;
+    ff_c_data_in <= ULA_out_carry;
 
 end architecture a_un_controle;
