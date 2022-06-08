@@ -27,6 +27,8 @@ ghdl -a conexao_banco_ULA_tb.vhd
 ghdl -a rom.vhd
 ghdl -a rom_tb.vhd
 
+ghdl -a ram.vhd
+
 ghdl -a maquina_estados.vhd
 ghdl -a maquina_estados_tb.vhd
 
