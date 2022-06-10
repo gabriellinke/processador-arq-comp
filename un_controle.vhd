@@ -10,7 +10,7 @@ entity un_controle is
         estado_out : out unsigned(1 downto 0);
         ULA_opselect : out unsigned(1 downto 0);
         sel_reg_1_in, sel_reg_2_in, sel_reg_write_in : out unsigned(2 downto 0);
-        rom_read, pc_write, jump_en, select_jump_type, exec, ULA_src : out std_logic;
+        rom_read, pc_write, jump_en, ram_read, ram_write, select_jump_type, exec, ULA_src : out std_logic;
         ULA_out_carry, ULA_out_zero: in std_logic
     );
 end entity;
@@ -75,6 +75,9 @@ begin
                 and opcode /= "00110" -- CPI - não quero que escreva quando fizer CPI, quero apenas atualizar o FF_Z e FF_C 
                 else '0'; 
 
+    ram_read <= '1' when opcode = "01100" else '0'; -- LD
+    ram_write <= '1' when opcode = "01101" else '0'; -- ST
+
     ULA_src <= '1' when opcode = "01000" -- LDI
                    or   opcode = "00010" --SUBI
                    or   opcode = "00110" --CPI
@@ -107,10 +110,6 @@ begin
     select_jump_type <= '0' when opcode= "11111" else '1'; -- Quando 0 - Direct Jump. Quando 1 - Relative Jump
 
     estado_out <= estado_s;
-    
-    -- Fazer um flip-flop (reg de 1 bit) para guardar o valor de Carry e de Zero
-    -- Configurar os write enables dos FFs
-    -- Operações de ULA dão um write_enable nos registradores de Carry e de Zero
 
     -- Acho que tirando o JMP, todas as outras são operações de ULA.
     op_de_ula <= '0' when opcode="11111" else '1';

@@ -14,13 +14,13 @@ architecture a_un_controle_tb of un_controle_tb is
             estado_out : out unsigned(1 downto 0);
             ULA_opselect : out unsigned(1 downto 0);
             sel_reg_1_in, sel_reg_2_in, sel_reg_write_in : out unsigned(2 downto 0);
-            rom_read, pc_write, jump_en, select_jump_type, exec, ULA_src : out std_logic;
+            rom_read, pc_write, jump_en, ram_read, ram_write, select_jump_type, exec, ULA_src : out std_logic;
             ULA_out_carry, ULA_out_zero: in std_logic
         );
     end component;
 
     constant period_time : time := 100 ns;
-    signal finished, clk, reset, rom_read, pc_write, jump_en, select_jump_type, exec, ULA_src, ULA_out_carry, ULA_out_zero : std_logic := '0';
+    signal finished, clk, reset, rom_read, ram_read, ram_write, pc_write, jump_en, select_jump_type, exec, ULA_src, ULA_out_carry, ULA_out_zero : std_logic := '0';
     signal instr_in : unsigned(16 downto 0) := "00000000000000000";
     signal estado_out, ULA_opselect : unsigned(1 downto 0) := "00";
     signal sel_reg_1_in_s, sel_reg_2_in_s, sel_reg_write_in_s : unsigned(2 downto 0) := "000";
@@ -31,6 +31,8 @@ begin
         reset => reset, 
         instr_in => instr_in, 
         rom_read => rom_read, 
+        ram_read => ram_read,
+        ram_write => ram_write,
         pc_write => pc_write, 
         jump_en => jump_en,
         select_jump_type => select_jump_type,

@@ -23,6 +23,16 @@ architecture a_processador of processador is
         );
     end component;
 
+    component ram is
+        port(
+            clk : in std_logic;
+            wr_en : in std_logic;
+            address : in unsigned(6 downto 0);
+            data_in : in unsigned(15 downto 0);
+            data_out : out unsigned(15 downto 0)
+        );
+    end component;
+
     component un_controle is
         port(
             clk : in std_logic;
@@ -31,7 +41,7 @@ architecture a_processador of processador is
             estado_out : out unsigned(1 downto 0);
             ULA_opselect : out unsigned(1 downto 0);
             sel_reg_1_in, sel_reg_2_in, sel_reg_write_in : out unsigned(2 downto 0);
-            rom_read, pc_write, jump_en, select_jump_type, exec, ULA_src : out std_logic;
+            rom_read, ram_read, ram_write, pc_write, jump_en, select_jump_type, exec, ULA_src : out std_logic;
             ULA_out_carry, ULA_out_zero: in std_logic
         );
     end component;
@@ -79,12 +89,12 @@ architecture a_processador of processador is
 
     signal reg1_out_s, reg2_out_s : unsigned(15 downto 0) := "0000000000000000";
     signal rom_read : std_logic := '1';
-    signal pc_write, jump_en, select_jump_type, exec : std_logic := '0';
+    signal pc_write, ram_read, ram_write, ram_wr_en, jump_en, select_jump_type, exec : std_logic := '0';
     signal pc_out_s : unsigned(11 downto 0) := "000000000000";
     signal rom_out : unsigned(16 downto 0) := "00000000000000000";
     signal instr_reg_out : unsigned(16 downto 0) := "00000000000000000";
     signal ULA_opselect_s, estado: unsigned(1 downto 0) := "00";
-    signal ULA_out_data, extended_signal : unsigned(15 downto 0) := "0000000000000000";
+    signal ULA_out_data, extended_signal, ram_out, banco_ula_in : unsigned(15 downto 0) := "0000000000000000";
     signal ULA_src, ULA_out_carry_s, ULA_out_zero_s: std_logic := '0';
     signal sel_reg_1_in_s, sel_reg_2_in_s, sel_reg_write_in_s : unsigned(2 downto 0) := "000";
 
@@ -93,6 +103,16 @@ begin
         clk => clk,
         address => pc_out_s,
         data => rom_out
+    );
+
+    -- When ram_read = '1' - 
+
+    MEM_RAM: ram port map(
+        clk => clk,
+        wr_en => ram_wr_en,
+        address => reg2_out_s(6 downto 0), -- X = R7
+        data_in => reg1_out_s, -- Rd
+        data_out => ram_out
     );
 
     PC: pc_control port map(
@@ -111,6 +131,8 @@ begin
         instr_in => instr_reg_out,
         estado_out => estado,
         rom_read => rom_read,
+        ram_read => ram_read,
+        ram_write => ram_write,        
         pc_write => pc_write,
         select_jump_type => select_jump_type,
         jump_en => jump_en,
@@ -136,7 +158,8 @@ begin
         sel_reg_1_in => sel_reg_1_in_s,
         sel_reg_2_in => sel_reg_2_in_s, 
         sel_reg_write_in => sel_reg_write_in_s, 
-        in_data => extended_signal,
+        -- in_data => extended_signal,
+        in_data => banco_ula_in,
         clk_in => clk,
         wr_en_in => exec,
         reset_in => reset,
@@ -157,4 +180,5 @@ begin
     ULA_result_out <= ULA_out_data;
     extended_signal <= "0000000" & instr_reg_out(8 downto 0) when instr_reg_out(8) = '0' else
                        "1111111" & instr_reg_out(8 downto 0);
-    end architecture;
+    banco_ula_in <= ram_out when ram_read = '1' else extended_signal;
+end architecture;
