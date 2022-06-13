@@ -37,7 +37,7 @@ architecture a_un_controle of un_controle is
     signal estado_s: unsigned(1 downto 0) := "00";
     signal opcode: unsigned(4 downto 0) := "00000";
     signal func: unsigned(5 downto 0) := "000000";
-    signal ff_z_data_in, ff_z_data_out, ff_c_data_in, ff_c_data_out, op_de_ula: std_logic := '0';
+    signal ff_z_data_in, ff_z_data_out, ff_c_data_in, ff_c_data_out, op_de_ula, ram_read_s: std_logic := '0';
     signal write_enable_ff_z, write_enable_ff_c: std_logic := '1';
     
 begin
@@ -75,12 +75,14 @@ begin
                 and opcode /= "00110" -- CPI - não quero que escreva quando fizer CPI, quero apenas atualizar o FF_Z e FF_C 
                 else '0'; 
 
-    ram_read <= '1' when opcode = "01100" else '0'; -- LD
     ram_write <= '1' when opcode = "01101" else '0'; -- ST
+    ram_read_s <= '1' when opcode = "01100" else '0'; -- LD
+    ram_read <= ram_read_s;
 
     ULA_src <= '1' when opcode = "01000" -- LDI
                    or   opcode = "00010" --SUBI
                    or   opcode = "00110" --CPI
+                   or   opcode = "01100" --LD
                    else '0';
 
     ULA_opselect <= "00" when opcode = "00000" and func = "100000" else -- ADD
@@ -90,13 +92,15 @@ begin
                     "01" when opcode = "00110" else -- CPI
                     "00" when opcode = "01000" else -- LDI
                     "01" when opcode = "00010" else -- SUBI
+                    "00" when opcode = "01100" else --LD
                     "11";
 
     sel_reg_1_in <= "000" when opcode = "01000" else -- LDI
+                    "000" when opcode = "01100" else -- LD
                     "000" when opcode = "00000" and func = "100001" else -- MOV
                     instr_in(11 downto 9); 
 
-    sel_reg_2_in <= instr_in(8 downto 6); 
+    sel_reg_2_in <= "111" when ram_read_s = '1' else instr_in(8 downto 6); 
     sel_reg_write_in <= instr_in(11 downto 9); 
 
     jump_en <=  '1' when opcode = "11111" else -- Direct Jump
