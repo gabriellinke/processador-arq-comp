@@ -89,7 +89,7 @@ architecture a_processador of processador is
 
     signal reg1_out_s, reg2_out_s : unsigned(15 downto 0) := "0000000000000000";
     signal rom_read : std_logic := '1';
-    signal pc_write, ram_read, ram_write, ram_wr_en, jump_en, select_jump_type, exec : std_logic := '0';
+    signal pc_write, ram_read, ram_write, jump_en, select_jump_type, exec : std_logic := '0';
     signal pc_out_s : unsigned(11 downto 0) := "000000000000";
     signal rom_out : unsigned(16 downto 0) := "00000000000000000";
     signal instr_reg_out : unsigned(16 downto 0) := "00000000000000000";
@@ -105,11 +105,9 @@ begin
         data => rom_out
     );
 
-    -- When ram_read = '1' - 
-
     MEM_RAM: ram port map(
         clk => clk,
-        wr_en => ram_wr_en,
+        wr_en => ram_write,
         address => reg2_out_s(6 downto 0), -- X = R7
         data_in => reg1_out_s, -- Rd
         data_out => ram_out
@@ -158,7 +156,6 @@ begin
         sel_reg_1_in => sel_reg_1_in_s,
         sel_reg_2_in => sel_reg_2_in_s, 
         sel_reg_write_in => sel_reg_write_in_s, 
-        -- in_data => extended_signal,
         in_data => banco_ula_in,
         clk_in => clk,
         wr_en_in => exec,
