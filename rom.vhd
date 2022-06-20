@@ -25,14 +25,20 @@ architecture a_rom of rom is
 		5 => B"01101_001_000000000",    -- ST R1
 		6 => B"00000_001_110_100110",   -- CP R7,R6
 		7 => B"10111_111111111011",     -- BRLO -5  
-        -- loop para remover não-primos
-		8 => B"01000_010_000000001",    -- LDI R2,1
+    
+        -- pula os numeros que foram zerados durante a execução
+        --   while (r1 = 0)
+        --     r7 <- r7 + 1
+        --     r1 <- [r7]
+		8 => B"01000_010_000000001",    -- LDI R2,1 -- armazena o número que está sendo verificado
 		9 => B"01000_111_000000000",    -- LDI R7,0
 		10 => B"00010_010_111111111",   -- SUBI R2,-1
 		11 => B"00000_111_010_100000",  -- ADD R7,R2
 		12 => B"01100_001_000000000",   -- LD R1
 		13 => B"00110_001_000000000",   -- CPI R1,0
-		14 => B"10100_111111111010",    -- BREQ -6
+		14 => B"10100_111111111010",    -- BREQ -6  
+
+        -- zera os multiplos
 		15 => B"00000_111_001_100000",  -- ADD R7,R1
 		16 => B"01101_000_000000000",   -- ST R0
 		17 => B"00000_111_110_100110",  -- CP R7,R6
@@ -40,6 +46,13 @@ architecture a_rom of rom is
 		19 => B"00000_010_110_100110",  -- CP R2,R6
 		20 => B"10111_111111110100",    -- BRLO -12
 
+        -- lê a memória do 2 ao 32
+        21 => B"01000_111_000000001",   -- LDI R7,1
+		22 => B"00010_111_111111111",   -- SUBI R7,-1
+		23 => B"01100_101_000000000",   -- LD R5
+		24 => B"00000_111_110_100110",  -- CP R7,R6
+		25 => B"10111_111111111100",    -- BRLO -4
+        -- FIM DO PROGRAMA DE VALIDAÇÃO
 
         -- PROGRAMA PARA TESTAR LD E ST
         -- Testa se os dados estão ficando salvos na memória e se os valores nos registradores não estão sendo sobrescritos em nenhum momento
