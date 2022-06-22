@@ -17,6 +17,7 @@ architecture a_rom of rom is
 
         -- PROGRAMA DE VALIDACAO
         -- loop para preencher quantidade especificada de numeros
+        -- preenche as posições de memória de 1 a 32 com os números de 1 a 32
         0 => B"01000_110_000100000",    -- LDI R6,32 -- número limite
 		1 => B"01000_001_000000000",    -- LDI R1,0
 		2 => B"01000_111_000000000",    -- LDI R7,0
@@ -27,18 +28,20 @@ architecture a_rom of rom is
 		7 => B"10111_111111111011",     -- BRLO -5  
 
         -- loop para remover os nao primos
+        -- remove todos os múltiplos de 2, depois de 3, e vai incrementando até chegar no número limite
         8 => B"01000_010_000000001",    -- LDI R2,1
 		9 => B"01000_111_000000000",    -- LDI R7,0
-		10 => B"00010_010_111111111",   -- SUBI R2,-1
-		11 => B"00000_111_010_100000",  -- ADD R7,R2
+		10 => B"00010_010_111111111",   -- SUBI R2,-1 -- incrementa em 1 o número que será analisado
+		11 => B"00000_111_010_100000",  -- ADD R7,R2 
 		12 => B"01100_100_000000000",   -- LD R4
-        13 => B"00000_100_000_100110",  -- CP R4,R0
+        13 => B"00000_100_000_100110",  -- CP R4,R0 -- se o número na memória for 0 pula pro próximo
         14 => B"10100_000000000100",    -- BREQ 4
-		15 => B"00000_111_100_100000",  -- ADD R7,R4
+		15 => B"00000_111_100_100000",  -- ADD R7,R4 -- remove os múltiplos de R4 da memória
 		16 => B"01101_000_000000000",   -- ST R0
 		17 => B"00000_111_110_100110",  -- CP R7,R6
 		18 => B"10111_111111111100",    -- BRLO -4
 
+        -- Verifica se o número analisado ainda é menor que o limite
 		19 => B"00000_010_110_100110",  -- CP R2,R6
 		20 => B"10111_111111110100",    -- BRLO -12
 
