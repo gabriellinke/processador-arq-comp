@@ -15,8 +15,8 @@ architecture a_rom of rom is
     constant content_rom : mem := (
         -- caso endereco => conteudo    
 
-        -- PROGRAMA DE VALIDAÇÃO
-        -- loop para preencher quantidade especificada de números
+        -- PROGRAMA DE VALIDACAO
+        -- loop para preencher quantidade especificada de numeros
         0 => B"01000_110_000100000",    -- LDI R6,32 -- número limite
 		1 => B"01000_001_000000000",    -- LDI R1,0
 		2 => B"01000_111_000000000",    -- LDI R7,0
@@ -26,7 +26,7 @@ architecture a_rom of rom is
 		6 => B"00000_001_110_100110",   -- CP R7,R6
 		7 => B"10111_111111111011",     -- BRLO -5  
 
-        -- loop para remover os não primos
+        -- loop para remover os nao primos
         8 => B"01000_010_000000001",    -- LDI R2,1
 		9 => B"01000_111_000000000",    -- LDI R7,0
 		10 => B"00010_010_111111111",   -- SUBI R2,-1
@@ -42,13 +42,13 @@ architecture a_rom of rom is
 		19 => B"00000_010_110_100110",  -- CP R2,R6
 		20 => B"10111_111111110100",    -- BRLO -12
 
-        -- loop para ler a memória do 2 ao 32
+        -- loop para ler a memoria do 2 ao 32
         21 => B"01000_111_000000001",   -- LDI R7,1
 		22 => B"00010_111_111111111",   -- SUBI R7,-1
 		23 => B"01100_011_000000000",   -- LD R3
 		24 => B"00000_111_110_100110",  -- CP R7,R6
 		25 => B"10111_111111111100",    -- BRLO -4
-        -- FIM DO PROGRAMA DE VALIDAÇÃO 
+        -- FIM DO PROGRAMA DE VALIDACAO 
 
         -- PROGRAMA PARA TESTAR LD E ST
         -- Testa se os dados estão ficando salvos na memória e se os valores nos registradores não estão sendo sobrescritos em nenhum momento
