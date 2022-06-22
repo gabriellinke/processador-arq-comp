@@ -17,7 +17,7 @@ architecture a_rom of rom is
 
         -- PROGRAMA DE VALIDAÇÃO
         -- loop para preencher quantidade especificada de números
-        0 => B"01000_110_000100001",    -- LDI R6,33 -- número limite
+        0 => B"01000_110_000100000",    -- LDI R6,32 -- número limite
 		1 => B"01000_001_000000000",    -- LDI R1,0
 		2 => B"01000_111_000000000",    -- LDI R7,0
 		3 => B"00010_001_111111111",    -- SUBI R1,-1
@@ -25,34 +25,30 @@ architecture a_rom of rom is
 		5 => B"01101_001_000000000",    -- ST R1
 		6 => B"00000_001_110_100110",   -- CP R7,R6
 		7 => B"10111_111111111011",     -- BRLO -5  
-    
-        -- pula os numeros que foram zerados durante a execução
-        --   while (r1 = 0)
-        --     r7 <- r7 + 1
-        --     r1 <- [r7]
-		8 => B"01000_010_000000001",    -- LDI R2,1 -- armazena o número que está sendo verificado
+
+        -- loop para remover os não primos
+        8 => B"01000_010_000000001",    -- LDI R2,1
 		9 => B"01000_111_000000000",    -- LDI R7,0
 		10 => B"00010_010_111111111",   -- SUBI R2,-1
 		11 => B"00000_111_010_100000",  -- ADD R7,R2
-		12 => B"01100_001_000000000",   -- LD R1
-		13 => B"00110_001_000000000",   -- CPI R1,0
-		14 => B"10100_111111111010",    -- BREQ -6  
-
-        -- zera os multiplos
-		15 => B"00000_111_001_100000",  -- ADD R7,R1
+		12 => B"01100_100_000000000",   -- LD R4
+        13 => B"00000_100_000_100110",  -- CP R4,R0
+        14 => B"10100_000000000100",    -- BREQ 4
+		15 => B"00000_111_100_100000",  -- ADD R7,R4
 		16 => B"01101_000_000000000",   -- ST R0
 		17 => B"00000_111_110_100110",  -- CP R7,R6
 		18 => B"10111_111111111100",    -- BRLO -4
+
 		19 => B"00000_010_110_100110",  -- CP R2,R6
 		20 => B"10111_111111110100",    -- BRLO -12
 
-        -- lê a memória do 2 ao 32
+        -- loop para ler a memória do 2 ao 32
         21 => B"01000_111_000000001",   -- LDI R7,1
 		22 => B"00010_111_111111111",   -- SUBI R7,-1
-		23 => B"01100_101_000000000",   -- LD R5
+		23 => B"01100_011_000000000",   -- LD R3
 		24 => B"00000_111_110_100110",  -- CP R7,R6
 		25 => B"10111_111111111100",    -- BRLO -4
-        -- FIM DO PROGRAMA DE VALIDAÇÃO
+        -- FIM DO PROGRAMA DE VALIDAÇÃO 
 
         -- PROGRAMA PARA TESTAR LD E ST
         -- Testa se os dados estão ficando salvos na memória e se os valores nos registradores não estão sendo sobrescritos em nenhum momento
