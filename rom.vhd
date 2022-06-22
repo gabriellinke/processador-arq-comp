@@ -42,6 +42,7 @@ architecture a_rom of rom is
 		18 => B"10111_111111111100",    -- BRLO -4
 
         -- Verifica se o número analisado ainda é menor que o limite
+        -- 19 => B"00110_010_000000111",   -- CPI R2,7 -- Para números até 32, remover até os múltiplos de 7 já resolve o problema
 		19 => B"00000_010_110_100110",  -- CP R2,R6
 		20 => B"10111_111111110100",    -- BRLO -12
 
