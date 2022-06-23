@@ -42,9 +42,9 @@ architecture a_rom of rom is
 		16 => B"01101_000_000000000",   -- ST R0        --       R7 <- R2 
 		17 => B"00000_111_110_100110",  -- CP R7,R6     --       R4 <- RAM[R7]
 		18 => B"10111_111111111100",    -- BRLO -4      --       se R4 = 0:
-		19 => B"00000_010_110_100110",  -- CP R2,R6     --       fim         
-		20 => B"10111_111111110100",    -- BRLO -12     --       senão:
-                                                        --           enquanto R7 < R6:
+		-- verifica se o número ainda é menor que 32    --       fim         
+		19 => B"00000_010_110_100110",  -- CP R2,R6     --       senão:
+        20 => B"10111_111111110100",    -- BRLO -12     --           enquanto R7 < R6:
                                                         --               R7 <- R7 + R4         
                                                         --               RAM[R7] <- 0         
                                                         --           fim
